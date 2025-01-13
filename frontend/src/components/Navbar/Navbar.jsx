@@ -1,5 +1,5 @@
-import React from "react";
-import { IoMdMenu } from "react-icons/io";
+import React, { useEffect, useRef, useState } from "react";
+import { IoMdClose, IoMdMenu } from "react-icons/io";
 import { motion } from "framer-motion";
 import LOGO from "./../../assets/logo.png";
 
@@ -44,6 +44,19 @@ const NavbarMenu = [
 ];
 
 const Navbar = () => {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [activeDropdown, setActiveDropdown] = useState(null);
+
+  // Toggle the mobile menu visibility
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
+  // Toggle the dropdown for the clicked menu
+  const toggleDropdown = (id) => {
+    setActiveDropdown(activeDropdown === id ? null : id);
+  };
+
   return (
     <nav className="relative z-20">
       <motion.div
@@ -62,6 +75,8 @@ const Navbar = () => {
               <li key={menu.id} className="relative group">
                 <a
                   href={menu.path}
+                  aria-expanded={activeDropdown === menu.id ? "true" : "false"}
+                  aria-controls={`dropdown-${menu.id}`}
                   className="inline-block py-2 px-4 cursor-pointer rounded-lg hover:bg-gray-200 hover:shadow-[0px_7px_10px_-7px_#9e9d9b]"
                 >
                   {menu.title}
@@ -115,7 +130,93 @@ const Navbar = () => {
         </div>
         {/* Mobile Hamburger menu section */}
         <div className="lg:hidden">
-          <IoMdMenu className="text-4xl" />
+          <div
+            onClick={toggleMobileMenu} // Toggle the mobile menu
+            className="cursor-pointer"
+          >
+            {isMobileMenuOpen ? (
+              <IoMdClose className="text-4xl" /> // Show close icon when menu is open
+            ) : (
+              <IoMdMenu className="text-4xl" /> // Show hamburger icon when menu is closed
+            )}
+          </div>
+
+          {/* Mobile Menu */}
+          {isMobileMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, x: 200 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.3 }}
+              className="absolute top-16 left-0 w-full bg-white shadow-lg rounded-lg z-10 p-4 mt-10"
+            >
+              <ul className="space-y-4">
+                {/* Mobile Menu Options */}
+                {NavbarMenu.map((item) => (
+                  <li key={item.id} className="relative">
+                    <div
+                      className="block py-2 px-4 cursor-pointer rounded-lg hover:bg-gray-200"
+                      onClick={() => {
+                        // If the clicked item is Services or Shop, toggle its dropdown
+                        if (item.dropdown) {
+                          toggleDropdown(item.id);
+                        } else {
+                          // For other items, close the menu directly
+                          setIsMobileMenuOpen(false);
+                        }
+                      }}
+                    >
+                      {item.title}
+                    </div>
+
+                    {/* Show dropdown menu if active */}
+                    {item.dropdown && activeDropdown === item.id && (
+                      <motion.ul
+                        initial={{ opacity: 0, y: -10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{
+                          duration: 0.3,
+                          type: "spring",
+                          stiffness: 120,
+                        }}
+                        className="space-y-2 mt-2"
+                      >
+                        {item.dropdown.map((subItem) => (
+                          <motion.li
+                            key={subItem.id}
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{
+                              opacity: 1,
+                              y: 0,
+                            }}
+                            transition={{
+                              duration: 0.3,
+                              delay: subItem.id * 0.1,
+                              type: "spring",
+                              stiffness: 120,
+                            }}
+                          >
+                            <a
+                              href={subItem.path}
+                              className="block px-4 py-2 hover:bg-gray-200"
+                              onClick={() => setIsMobileMenuOpen(false)} // Close on item click
+                            >
+                              {subItem.title}
+                            </a>
+                          </motion.li>
+                        ))}
+                      </motion.ul>
+                    )}
+                  </li>
+                ))}
+                <button
+                  className="primary-btn w-full"
+                  onClick={() => setIsMobileMenuOpen(false)} // Close on button click
+                >
+                  Sign In
+                </button>
+              </ul>
+            </motion.div>
+          )}
         </div>
       </motion.div>
     </nav>
