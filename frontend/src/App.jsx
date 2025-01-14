@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
 import { Outlet } from "react-router-dom";
-import Navbar from "./components/Navbar/Navbar";
+import Hero from "./components/Hero/Hero";
 
 
 function App() {
   return (
     <>
-      <Navbar />
+      <Hero />
       <Outlet />
     </>
   );

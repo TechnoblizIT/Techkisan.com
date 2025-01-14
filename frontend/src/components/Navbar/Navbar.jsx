@@ -147,7 +147,7 @@ const Navbar = () => {
               initial={{ opacity: 0, x: 200 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.3 }}
-              className="absolute top-16 left-0 w-full bg-white shadow-lg rounded-lg z-10 p-4 mt-10"
+              className="absolute top-16 left-0 w-full bg-white shadow-lg rounded-lg z-20 p-4 mt-10"
             >
               <ul className="space-y-4">
                 {/* Mobile Menu Options */}
@@ -178,7 +178,7 @@ const Navbar = () => {
                           type: "spring",
                           stiffness: 120,
                         }}
-                        className="space-y-2 mt-2"
+                        className="space-y-2 mt-2" 
                       >
                         {item.dropdown.map((subItem) => (
                           <motion.li
