@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "../Navbar/Navbar";
 import { IoIosArrowRoundForward } from "react-icons/io";
 import Blob from "../../assets/blob.svg";
-import HeroPng from "../../assets/hero2.png";
-import { animate, motion } from "framer-motion";
+import HeroPng1 from "../../assets/hero1.png";
+import HeroPng2 from "../../assets/hero2.png";
+import HeroPng3 from "../../assets/hero3.png"; 
+import { motion } from "framer-motion";
 
 export const FadeUp = (delay) => {
   return {
@@ -26,6 +28,16 @@ export const FadeUp = (delay) => {
 };
 
 const Hero = () => {
+  const images = [HeroPng1, HeroPng2, HeroPng3];
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
+    }, 3000); // Change every 3 seconds
+    return () => clearInterval(interval); 
+  }, [images.length]);
+
   return (
     <section className="bg-light overflow-hidden relative">
       <Navbar />
@@ -62,19 +74,20 @@ const Hero = () => {
             </motion.div>
           </div>
         </div>
-        <div className="flex justify-center items-center">
+        <div className="flex justify-center items-center relative">
           <motion.img
-            initial={{ x: 50, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.4, ease: "easeInOut" }}
-            src={HeroPng}
-            alt=""
+            key={currentImageIndex} 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.9, ease: "easeInOut" }}
+            src={images[currentImageIndex]}
+            alt={`Hero image ${currentImageIndex + 1}`}
             className="w-[400px] xl:w-[600px] relative z-10 drop-shadow"
           />
           <motion.img
             initial={{ x: -50, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.2, ease: "easeInOut" }}
+            transition={{ duration: 0.9, delay: 0.5, ease: "easeInOut" }}
             src={Blob}
             alt=""
             className="absolute -bottom-32 w-[800px] md:w-[1500px] z-[1] hidden md:block"
