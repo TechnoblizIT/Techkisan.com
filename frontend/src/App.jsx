@@ -6,17 +6,20 @@ import Automation from "./components/Banner/Automation";
 import Solar from "./components/Banner/Solar";
 import Security from "./components/Banner/Security";
 import ITservices from "./components/Banner/ITservices";
+import ScrollToTop from "./components/Scroller/ScrollToTop";
 
 
 function App() {
   return (
     <>
+      <ScrollToTop />
       <Hero />
       <Services />
       <Automation />
       <Solar />
       <Security />
       <ITservices />
+      
       <Outlet />
     </>
   );
