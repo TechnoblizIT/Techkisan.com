@@ -7,6 +7,7 @@ import Solar from "./components/Banner/Solar";
 import Security from "./components/Banner/Security";
 import ITservices from "./components/Banner/ITservices";
 import ScrollToTop from "./components/Scroller/ScrollToTop";
+import Footer from "./components/Footer/Footer";
 
 
 function App() {
@@ -19,7 +20,7 @@ function App() {
       <Solar />
       <Security />
       <ITservices />
-      
+      <Footer />
       <Outlet />
     </>
   );
