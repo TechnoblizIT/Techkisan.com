@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import Navbar from "../Navbar/Navbar";
 import { IoIosArrowRoundForward } from "react-icons/io";
 import Blob from "../../assets/blob.svg";
 import HeroPng1 from "../../assets/hero1.png";
@@ -40,7 +39,7 @@ const Hero = () => {
 
   return (
     <section className="bg-light overflow-hidden relative">
-      <Navbar />
+      
       <div className="container grid grid-cols-1 md:grid-cols-2 min-h-[650px]">
         <div className="flex flex-col justify-center py-14 md:py-0 relative z-10">
           <div className="text-center md:text-left space-y-10 lg:max-w-[400px]">

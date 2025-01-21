@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { IoMdClose, IoMdMenu } from "react-icons/io";
 import { motion } from "framer-motion";
 import LOGO from "./../../assets/logo.png";
+import { Link } from "react-router-dom";
 
 const NavbarMenu = [
   {
@@ -66,7 +67,8 @@ const Navbar = () => {
       >
         {/* Logo section */}
         <div>
-          <img src={LOGO} alt="LOGO" className="w-40 h-20 object-contain" />
+          <Link to={"/"}><img src={LOGO} alt="LOGO" className="w-40 h-20 object-contain" /></Link>
+          
         </div>
         {/* Menu section */}
         <div className="hidden lg:block">
@@ -125,7 +127,7 @@ const Navbar = () => {
                 )}
               </li>
             ))}
-            <button className="primary-btn">Sign In</button>
+            <Link to={"/login"} className="primary-btn">Sign In</Link>
           </ul>
         </div>
         {/* Mobile Hamburger menu section */}
