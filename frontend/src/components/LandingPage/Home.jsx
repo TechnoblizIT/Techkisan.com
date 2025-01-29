@@ -19,7 +19,6 @@ function Home() {
       <Solar />
       <Security />
       <ITservices />
-      <Footer />
     </>
   );
 }

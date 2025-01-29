@@ -67,8 +67,9 @@ const Navbar = () => {
       >
         {/* Logo section */}
         <div>
-          <Link to={"/"}><img src={LOGO} alt="LOGO" className="w-40 h-20 object-contain" /></Link>
-          
+          <Link to={"/"}>
+            <img src={LOGO} alt="LOGO" className="w-40 h-20 object-contain" />
+          </Link>
         </div>
         {/* Menu section */}
         <div className="hidden lg:block">
@@ -109,19 +110,29 @@ const Navbar = () => {
                           stiffness: 120, // Natural spring effect
                         }}
                       >
-                        <Link
-                          to={item.path}
-                          className="block px-4 py-2 hover:bg-gray-200"
+                        <motion.div
+                          whileHover={{
+                            scale: 1.1, // Zoom effect on hover
+                            transition: { type: "spring", stiffness: 300 },
+                          }}
+                          className="rounded-lg overflow-hidden"
                         >
-                          {item.title}
-                        </Link>
+                          <Link
+                            to={item.path}
+                            className="block px-4 py-2 hover:bg-gray-200 "
+                          >
+                            {item.title}
+                          </Link>
+                        </motion.div>
                       </motion.li>
                     ))}
                   </motion.ul>
                 )}
               </li>
             ))}
-            <Link to={"/login"} className="primary-btn">Sign In</Link>
+            <Link to={"/login"} className="primary-btn">
+              Sign In
+            </Link>
           </ul>
         </div>
         {/* Mobile Hamburger menu section */}
@@ -174,7 +185,7 @@ const Navbar = () => {
                           type: "spring",
                           stiffness: 120,
                         }}
-                        className="space-y-2 mt-2" 
+                        className="space-y-2 mt-2"
                       >
                         {item.dropdown.map((subItem) => (
                           <motion.li
@@ -204,7 +215,13 @@ const Navbar = () => {
                     )}
                   </li>
                 ))}
-                <Link to={"/login"} className="primary-btn" onClick={() => setIsMobileMenuOpen(false)}>Sign In</Link>
+                <Link
+                  to={"/login"}
+                  className="primary-btn"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Sign In
+                </Link>
               </ul>
             </motion.div>
           )}

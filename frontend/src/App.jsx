@@ -24,8 +24,9 @@ function App() {
       <Solar />
       <Security />
       <ITservices />
-      <Footer />
+      
       <Outlet /> */}
+      <Footer />
     </>
   );
 }
