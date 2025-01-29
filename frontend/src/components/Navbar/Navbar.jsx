@@ -14,7 +14,7 @@ const NavbarMenu = [
     id: 2,
     title: "Services",
     dropdown: [
-      { id: 1, title: "Automations", path: "/" },
+      { id: 1, title: "Automations", path: "/automationservices" },
       {
         id: 2,
         title: "Solar Services",
@@ -75,14 +75,12 @@ const Navbar = () => {
           <ul className="flex items-center gap-6 relative">
             {NavbarMenu.map((menu) => (
               <li key={menu.id} className="relative group">
-                <a
-                  href={menu.path}
-                  aria-expanded={activeDropdown === menu.id ? "true" : "false"}
-                  aria-controls={`dropdown-${menu.id}`}
+                <Link
+                  to={menu.path || "#"}
                   className="inline-block py-2 px-4 cursor-pointer rounded-lg hover:bg-gray-200 hover:shadow-[0px_7px_10px_-7px_#9e9d9b]"
                 >
                   {menu.title}
-                </a>
+                </Link>
 
                 {/* Dropdown Menu */}
                 {menu.dropdown && (
@@ -111,16 +109,12 @@ const Navbar = () => {
                           stiffness: 120, // Natural spring effect
                         }}
                       >
-                        <motion.a
-                          href={item.path}
+                        <Link
+                          to={item.path}
                           className="block px-4 py-2 hover:bg-gray-200"
-                          whileHover={{
-                            scale: 1.1, // Zoom effect on hover
-                            transition: { type: "spring", stiffness: 300 },
-                          }}
                         >
                           {item.title}
-                        </motion.a>
+                        </Link>
                       </motion.li>
                     ))}
                   </motion.ul>
@@ -197,25 +191,20 @@ const Navbar = () => {
                               stiffness: 120,
                             }}
                           >
-                            <a
-                              href={subItem.path}
+                            <Link
+                              to={subItem.path}
                               className="block px-4 py-2 hover:bg-gray-200"
-                              onClick={() => setIsMobileMenuOpen(false)} // Close on item click
+                              onClick={() => setIsMobileMenuOpen(false)}
                             >
                               {subItem.title}
-                            </a>
+                            </Link>
                           </motion.li>
                         ))}
                       </motion.ul>
                     )}
                   </li>
                 ))}
-                <button
-                  className="primary-btn w-full"
-                  onClick={() => setIsMobileMenuOpen(false)} // Close on button click
-                >
-                  Sign In
-                </button>
+                <Link to={"/login"} className="primary-btn" onClick={() => setIsMobileMenuOpen(false)}>Sign In</Link>
               </ul>
             </motion.div>
           )}
