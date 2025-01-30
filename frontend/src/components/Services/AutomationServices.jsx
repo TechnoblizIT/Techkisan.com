@@ -1,5 +1,5 @@
 import React from "react";
-import { FaAnglesRight } from "react-icons/fa6";
+import { FaCheckCircle } from "react-icons/fa";
 import automationservices from "../../assets/automationservices.jpg";
 import homeautomation from "../../assets/home-automation.jpg";
 import lightautomation from "../../assets/light-automation.jpg";
@@ -7,71 +7,152 @@ import bms from "../../assets/bms.jpg";
 import autodoor from "../../assets/automatic-door.jpg";
 import gate from "../../assets/gate-automation.jpg";
 import hotel from "../../assets/hotel-lock.jpg";
-import Occupancy from "../../assets/occupacy-sensor.png";
+import occupancy from "../../assets/occupacy-sensor.png";
 import hometheatre from "../../assets/home-theatre.jpg";
 import nurse from "../../assets/nurse-calling-system.jpg";
 import smartlock from "../../assets/Smart-Lock.jpg";
 
+// Services with dynamic checklists
 const services = [
   {
     title: "Home Automation",
     description:
-      "Home automation transforms your living space with smart systems that enhance convenience, security, and energy efficiency. Control lighting, climate, and devices effortlessly through voice commands or a mobile app. Experience modern living tailored to your lifestyle.",
+      "Home automation transforms your living space with smart systems that enhance convenience, security, and energy efficiency.",
     image: homeautomation,
+    features: [
+      "Smart Controls",
+      "Energy Efficiency",
+      "Voice Integration",
+      "Remote Access",
+      "Enhanced Security",
+      "Customizable Solutions",
+    ],
   },
   {
-    title: "Lght Automation",
+    title: "Light Automation",
     description:
-      "Light automation enhances comfort and energy efficiency by providing smart control over your home or office lighting. Adjust brightness, set schedules, or create ambiance effortlessly with advanced automation technology. Experience convenience, savings, and a smarter living space.",
+      "Light automation enhances comfort and energy efficiency by providing smart control over your home or office lighting.",
     image: lightautomation,
+    features: [
+      "Smart Dimming",
+      "Motion Sensors",
+      "Schedule Programming",
+      "Remote Control",
+      "Energy Saving Modes",
+      "Voice Integration",
+    ],
   },
   {
     title: "Building Management System (BMS)",
     description:
-      "A Building Management System (BMS) optimizes energy use, enhances security, and ensures seamless control of all building operations. From HVAC and lighting to surveillance, our BMS solutions simplify complex systems for improved efficiency and management. Elevate your building’s performance with smart automation.",
+      "A Building Management System (BMS) optimizes energy use, enhances security, and ensures seamless control of all building operations.",
     image: bms,
+    features: [
+      "Centralized Monitoring",
+      "Energy Optimization",
+      "HVAC Control",
+      "Lighting Management",
+      "Real-Time Alerts",
+      "Security Integration",
+    ],
   },
   {
     title: "Automatic Door",
     description:
-      "Automatic doors offer seamless access, enhanced security, and convenience for homes and businesses. With smart sensors and customization options, they ensure smooth operation while adding a modern touch to your property. Experience effortless entry and improved safety.",
+      "Automatic doors offer seamless access, enhanced security, and convenience for homes and businesses.",
     image: autodoor,
+    features: [
+      "Motion Sensors",
+      "Touchless Operation",
+      "Enhanced Security",
+      "Energy Efficiency",
+      "Customizable Designs",
+      "Remote Access",
+    ],
   },
   {
     title: "Gate Automation",
     description:
-      "Gate automation combines security, convenience, and modern technology to control access to your property effortlessly. With features like remote operation and durable designs, it enhances safety while providing ease of use for residential and commercial spaces.",
+      "Gate automation combines security, convenience, and modern technology to control access to your property effortlessly.",
     image: gate,
+    features: [
+      "Remote Operation",
+      "Advanced Security",
+      "Durable Mechanism",
+      "Smart Access Control",
+      "Motion Sensors",
+      "Customizable Designs",
+    ],
   },
   {
     title: "Hotel Lock",
     description:
-      "Hotel lock systems provide secure, efficient, and modern access solutions for guests and staff. With features like keyless entry and remote management, they enhance convenience and elevate the guest experience while ensuring top-notch security.",
+      "Hotel lock systems provide secure, efficient, and modern access solutions for guests and staff.",
     image: hotel,
+    features: [
+      "Keyless Entry",
+      "Smart Card Access",
+      "Remote Management",
+      "Enhanced Security",
+      "User-Friendly Interface",
+      "Customizable Access Settings",
+    ],
   },
   {
     title: "Occupancy Sensor",
     description:
-      "Occupancy sensors optimize energy use and enhance convenience by detecting movement to control lighting and other systems automatically. They improve efficiency, reduce costs, and create smarter spaces for homes and businesses.",
-    image: Occupancy,
+      "Occupancy sensors optimize energy use and enhance convenience by detecting movement to control lighting and other systems automatically.",
+    image: occupancy,
+    features: [
+      "Motion Detection",
+      "Energy Efficiency",
+      "Automatic Lighting Control",
+      "Smart Integration",
+      "Adjustable Sensitivity",
+      "Wireless Connectivity",
+    ],
   },
   {
     title: "Home Theatre",
     description:
-      "A home theatre system delivers a cinematic experience in the comfort of your home. With immersive sound, high-definition visuals, and smart controls, it transforms your space into an entertainment hub for movies, music, and gaming.",
+      "A home theatre system delivers a cinematic experience in the comfort of your home.",
     image: hometheatre,
+    features: [
+      "Surround Sound",
+      "4K/HD Visuals",
+      "Smart Device Integration",
+      "Customizable Setup",
+      "Voice and App Control",
+      "Immersive Experience",
+    ],
   },
   {
     title: "Nurse Calling System",
     description:
-      "The Nurse Calling System ensures prompt and efficient communication between patients and medical staff. Designed for hospitals and care facilities, it enhances patient care with easy-to-use alerts and quick response mechanisms.",
+      "The Nurse Calling System ensures prompt and efficient communication between patients and medical staff.",
     image: nurse,
+    features: [
+      "Patient Alert Buttons",
+      "Quick Response Alerts",
+      "Centralized Monitoring",
+      "Wireless Connectivity",
+      "Customizable Configurations",
+      "Emergency Integration",
+    ],
   },
   {
     title: "Smart Lock",
     description:
-      "Smart locks provide keyless entry and enhanced security for homes and businesses. With advanced features like remote access and activity tracking, they offer convenience, control, and peace of mind for modern living.",
+      "Smart locks provide keyless entry and enhanced security for homes and businesses.",
     image: smartlock,
+    features: [
+      "Keyless Entry",
+      "Remote Access",
+      "Activity Monitoring",
+      "Voice Control Integration",
+      "Enhanced Security",
+      "Easy Installation",
+    ],
   },
 ];
 
@@ -96,8 +177,8 @@ const AutomationServices = () => {
         <h2 className="text-3xl font-bold text-center text-gray-800 mb-12">
           Our Automation Services
         </h2>
-        
-        <div className="grid gap-10 lg:grid-cols-1 relative ">
+
+        <div className="grid gap-10 lg:grid-cols-1 relative">
           {services.map((service, index) => (
             <div
               key={index}
@@ -108,7 +189,7 @@ const AutomationServices = () => {
                 <img
                   src={service.image}
                   alt={service.title}
-                  className="w-full h-full object-cover"
+                  className="w-full max-h-64 object-cover"
                 />
               </div>
 
@@ -121,21 +202,12 @@ const AutomationServices = () => {
                   <p className="text-gray-600 mt-2">{service.description}</p>
                 </div>
 
-                {/* Checklist (3x2 Grid) */}
-                <ul className="mt-4 grid grid-cols-3 gap-4 text-gray-700">
-                  {[
-                    "Smart Controls",
-                    "Energy Efficiency",
-                    "Voice Integration",
-                    "Remote Access",
-                    "Enhanced Security",
-                    "Customizable Solutions",
-                  ].map((item, i) => (
+                {/* Dynamic Checklist */}
+                <ul className="mt-4 grid grid-cols-2 md:grid-cols-3 gap-4 text-gray-700">
+                  {service.features.map((feature, i) => (
                     <li key={i} className="flex items-center gap-2">
-                      <span className="text-green-500">
-                        <FaAnglesRight />
-                      </span>
-                      {item}
+                      <FaCheckCircle className="text-green-500" />
+                      {feature}
                     </li>
                   ))}
                 </ul>

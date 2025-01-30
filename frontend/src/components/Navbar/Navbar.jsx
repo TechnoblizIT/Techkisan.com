@@ -18,10 +18,10 @@ const NavbarMenu = [
       {
         id: 2,
         title: "Solar Services",
-        path: "/",
+        path: "/solarservices",
       },
-      { id: 3, title: "Security Solutions", path: "/" },
-      { id: 4, title: "IT Services", path: "/" },
+      { id: 3, title: "Security Solutions", path: "/securitysolutions" },
+      { id: 4, title: "IT Services", path: "/itservices" },
     ],
   },
   {

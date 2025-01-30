@@ -6,6 +6,9 @@ import './index.css';
 import SignInSignUp from "./components/SignInSignUp/SignInSignUp.jsx";
 import Home from "./components/LandingPage/Home.jsx";
 import AutomationServices from "./components/Services/AutomationServices.jsx";
+import SecurityServicesPage from "./components/Services/SecurityServicesPage.jsx";
+import ITServicesPage from "./components/Services/ITServicesPage.jsx";
+import SolarServicesPage from "./components/Services/SolarServicesPage.jsx";
 
 const router = createBrowserRouter([
   {
@@ -15,6 +18,9 @@ const router = createBrowserRouter([
       { path: "/", element: <Home /> },
       { path: "/login", element: <SignInSignUp /> },
       { path: "/automationservices", element: <AutomationServices /> },
+      { path: "/itservices", element: <ITServicesPage /> },
+      { path: "/securitysolutions", element: <SecurityServicesPage /> },
+      { path: "/solarservices", element: <SolarServicesPage /> },
     ],
   },
 ]);
