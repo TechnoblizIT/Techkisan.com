@@ -40,7 +40,7 @@ const NavbarMenu = [
   {
     id: 3,
     title: "About Us",
-    path: "#",
+    path: "/aboutus",
   },
 ];
 

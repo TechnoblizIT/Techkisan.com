@@ -9,6 +9,7 @@ import AutomationServices from "./components/Services/AutomationServices.jsx";
 import SecurityServicesPage from "./components/Services/SecurityServicesPage.jsx";
 import ITServicesPage from "./components/Services/ITServicesPage.jsx";
 import SolarServicesPage from "./components/Services/SolarServicesPage.jsx";
+import AboutUs from "./components/AboutUs/AboutUs.jsx";
 
 const router = createBrowserRouter([
   {
@@ -21,6 +22,7 @@ const router = createBrowserRouter([
       { path: "/itservices", element: <ITServicesPage /> },
       { path: "/securitysolutions", element: <SecurityServicesPage /> },
       { path: "/solarservices", element: <SolarServicesPage /> },
+      { path: "/aboutus", element: <AboutUs /> },
     ],
   },
 ]);

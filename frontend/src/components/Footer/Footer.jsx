@@ -94,7 +94,16 @@ const Footer = () => {
                   Home
                 </li>
                 <li className="cursor-pointer hover:text-secondary duration-200">
-                  Services
+                  <a href="/automationservices">Automation Services</a>
+                </li>
+                <li className="cursor-pointer hover:text-secondary duration-200">
+                  <a href="/solarservices">Solar Services</a>
+                </li>
+                <li className="cursor-pointer hover:text-secondary duration-200">
+                  <a href="/securitysolutions">Security Solutions</a>
+                </li>
+                <li className="cursor-pointer hover:text-secondary duration-200">
+                  <a href="/itservices">IT Services</a>
                 </li>
                 <li className="cursor-pointer hover:text-secondary duration-200">
                   About
