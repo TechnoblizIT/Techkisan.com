@@ -5,6 +5,7 @@ import onGrid from "../../assets/on-grid.jpeg";
 import offGrid from "../../assets/off-grid.jpeg";
 import inverter from "../../assets/inverter-system.jpg";
 import battery from "../../assets/solar-batteries.jpg";
+import Footer from "../Footer/Footer";
 
 const services = [
   {
@@ -67,6 +68,7 @@ const services = [
 
 const SolarServicesPage = () => {
   return (
+    <>
     <div>
       {/* Parallax Section */}
       <section
@@ -128,6 +130,8 @@ const SolarServicesPage = () => {
         </div>
       </div>
     </div>
+    <Footer />
+    </>
   );
 };
 

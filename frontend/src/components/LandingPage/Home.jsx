@@ -12,13 +12,14 @@ import Footer from "../../components/Footer/Footer";
 function Home() {
   return (
     <>
-      <ScrollToTop />
+      
       <Hero />
       <Services />
       <Automation />
       <Solar />
       <Security />
       <ITservices />
+      <Footer />
     </>
   );
 }

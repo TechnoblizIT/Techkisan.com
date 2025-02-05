@@ -11,6 +11,7 @@ import occupancy from "../../assets/occupacy-sensor.png";
 import hometheatre from "../../assets/home-theatre.jpg";
 import nurse from "../../assets/nurse-calling-system.jpg";
 import smartlock from "../../assets/Smart-Lock.jpg";
+import Footer from "../Footer/Footer";
 
 // Services with dynamic checklists
 const services = [
@@ -158,6 +159,7 @@ const services = [
 
 const AutomationServices = () => {
   return (
+    <>
     <div>
       {/* Parallax Section */}
       <section
@@ -217,6 +219,8 @@ const AutomationServices = () => {
         </div>
       </div>
     </div>
+    <Footer/>
+    </>
   );
 };
 

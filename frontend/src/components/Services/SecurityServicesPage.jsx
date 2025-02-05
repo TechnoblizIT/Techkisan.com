@@ -13,6 +13,7 @@ import burglarAlarm from "../../assets/burgler-alarm.jpg";
 import fireHydrant from "../../assets/fire-hydrants.jpg";
 import paSystem from "../../assets/pa-system.jpg";
 import videoDoorPhone from "../../assets/video-door-phone.png";
+import Footer from "../Footer/Footer";
 
 const services = [
     {
@@ -187,6 +188,7 @@ const services = [
 
 const SecurityServicesPage = () => {
   return (
+    <>
     <div>
       {/* Parallax Section */}
       <section
@@ -248,6 +250,8 @@ const SecurityServicesPage = () => {
         </div>
       </div>
     </div>
+    <Footer />
+    </>
   );
 };
 

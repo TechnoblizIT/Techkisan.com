@@ -5,12 +5,14 @@ import "swiper/css";
 import "swiper/css/pagination";
 import Footer from "./components/Footer/Footer";
 import Navbar from "./components/Navbar/Navbar";
+import ScrollToTop from "./components/Scroller/ScrollToTop";
 
 
 function App() {
   return (
     <>
       {/* <ScrollToTop /> */}
+      <ScrollToTop />
       <Navbar />
       <Outlet />
       {/* <Hero />
@@ -21,7 +23,7 @@ function App() {
       <ITservices />
       
       <Outlet /> */}
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 }

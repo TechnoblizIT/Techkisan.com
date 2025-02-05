@@ -9,6 +9,7 @@ import consulting from "../../assets/it-consultancy-strategy.png";
 import ai from "../../assets/ai-solutions.jpg";
 import data from "../../assets/data-management.jpeg";
 import cloud from "../../assets/cloudcomputing.jpg";
+import Footer from "../Footer/Footer";
 
 const services = [
   {
@@ -127,6 +128,7 @@ const services = [
 
 const ITServicesPage = () => {
   return (
+    <>
     <div>
       {/* Parallax Section */}
       <section
@@ -188,6 +190,8 @@ const ITServicesPage = () => {
         </div>
       </div>
     </div>
+    <Footer />
+    </>
   );
 };
 

@@ -2,6 +2,7 @@ import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
 import styles from "../../styles/Testimonials.module.css";
+import "swiper/css/pagination"; 
 import client1 from "../../assets/client-1.jpg";
 import client2 from "../../assets/client-2.jpg";
 import client3 from "../../assets/client-3.jpg";

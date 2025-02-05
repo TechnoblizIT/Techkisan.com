@@ -27,7 +27,15 @@ const teamMembers = [
     twitter: "https://twitter.com",
     github: "https://github.com",
   },
- 
+  {
+    name: "SWAPNIL AMBULE",
+    position: "Founder And CEO",
+    description: "Specialist in user interface and user experience design.",
+    image: sourabambule,
+    linkedin: "https://linkedin.com",
+    twitter: "https://twitter.com",
+    github: "https://github.com",
+  },
 ];
 
 const TeamMemberCard = ({ member }) => (
@@ -67,6 +75,7 @@ const OurTeam = () => {
           }}
           className="py-6 pb-10"
         >
+        
           {teamMembers.map((member, index) => (
             <SwiperSlide key={index}>
               <TeamMemberCard member={member} />
