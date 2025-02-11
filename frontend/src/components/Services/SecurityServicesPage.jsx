@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { FaCheckCircle } from "react-icons/fa";
 import securityBg from "../../assets/securty-solutions.jpg";
 import accessControl from "../../assets/access-control.png";
@@ -14,10 +14,12 @@ import fireHydrant from "../../assets/fire-hydrants.jpg";
 import paSystem from "../../assets/pa-system.jpg";
 import videoDoorPhone from "../../assets/video-door-phone.png";
 import Footer from "../Footer/Footer";
+import { useLocation } from "react-router-dom";
 
 const services = [
     {
       title: "Access Control",
+      id:"accesscontrol",
       description:
         "Access control systems provide secure and efficient management of entry to your property. They enhance safety by restricting unauthorized access and ensuring seamless control for authorized personnel.",
       image: accessControl,
@@ -32,6 +34,7 @@ const services = [
     },
     {
       title: "CCTV Surveillance",
+      id:"cctv",
       description:
         "CCTV surveillance systems ensure round-the-clock monitoring and security for your property. With high-definition cameras and real-time access, they help deter threats and provide peace of mind.",
       image: cctv,
@@ -46,6 +49,7 @@ const services = [
     },
     {
       title: "Fire Suppression",
+      id:"firesuppression",
       description:
         "Fire suppression systems provide rapid detection and control of fires to protect life and property. Designed for homes, offices, and industrial spaces, these systems ensure safety with advanced technology.",
       image: fireSuppression,
@@ -60,6 +64,7 @@ const services = [
     },
     {
       title: "Time Attendance",
+      id:"timeattendance",
       description:
         "Time attendance systems streamline employee tracking with accurate and automated records. Ideal for businesses of all sizes, they enhance productivity and ensure efficient workforce management.",
       image: timeAttendance,
@@ -74,6 +79,7 @@ const services = [
     },
     {
       title: "Boom Barrier",
+      id:"boombarrier",
       description:
         "Boom barriers provide secure and automated control of vehicle entry and exit at gates. Designed for residential, commercial, and industrial spaces, they enhance security and streamline access management.",
       image: boomBarrier,
@@ -88,6 +94,7 @@ const services = [
     },
     {
       title: "Fire Alarm",
+      id:"firealarm",
       description:
         "Fire alarm systems ensure early detection and prompt alerts during fire emergencies, protecting lives and property. With advanced sensors and reliable performance, they are essential for homes, offices, and industrial spaces.",
       image: fireAlarm,
@@ -102,6 +109,7 @@ const services = [
     },
     {
       title: "Network & Communication",
+      id:"networkandcommunication",
       description:
         "Network and communication systems provide seamless connectivity for homes and businesses. With reliable and high-speed solutions, they ensure efficient data sharing, communication, and device integration for smooth operations.",
       image: network,
@@ -116,6 +124,7 @@ const services = [
     },
     {
       title: "Vehicle Tracking",
+      id:"vehicletracking",
       description:
         "Vehicle tracking systems provide real-time monitoring and management of your fleet or personal vehicles. With GPS technology, they ensure enhanced security, route optimization, and efficient fleet management, offering peace of mind and control.",
       image: vehicleTracking,
@@ -130,6 +139,7 @@ const services = [
     },
     {
       title: "Burglar Alarm",
+      id:"burglaralarm",
       description:
         "Burglar alarm systems offer reliable protection by detecting unauthorized entry and triggering immediate alerts. Designed for homes and businesses, they deter intrusions and ensure fast response times to enhance security.",
       image: burglarAlarm,
@@ -144,6 +154,7 @@ const services = [
     },
     {
       title: "Fire Hydrant",
+      id:"firehydrant",
       description:
         "Fire hydrant systems provide quick access to water for firefighting during emergencies. Strategically placed in key locations, they are essential for ensuring safety and minimizing damage in both residential and commercial properties.",
       image: fireHydrant,
@@ -158,6 +169,7 @@ const services = [
     },
     {
       title: "Public Address (PA) Systems",
+      id:"pasystem",
       description:
         "Public Address (PA) systems allow clear and effective communication in large spaces. Whether for announcements, emergency alerts, or event coordination, these systems ensure your message reaches everyone in real-time.",
       image: paSystem,
@@ -172,6 +184,7 @@ const services = [
     },
     {
       title: "Video Door Phone",
+      id:"videodoorphone",
       description:
         "Video door phones provide secure, two-way communication with visitors, enhancing security at entry points. With video and audio capabilities, they allow you to see and speak to visitors before granting access, ensuring peace of mind.",
       image: videoDoorPhone,
@@ -187,6 +200,19 @@ const services = [
   ];
 
 const SecurityServicesPage = () => {
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.hash) {
+      const id = location.hash.replace("#", "");
+      const section = document.getElementById(id);
+      if (section) {
+        setTimeout(() => {
+          section.scrollIntoView({ behavior: "smooth", block: "center" });
+        }, 300);
+      }
+    }
+  }, [location]);
   return (
     <>
     <div>
@@ -213,6 +239,7 @@ const SecurityServicesPage = () => {
           {services.map((service, index) => (
             <div
               key={index}
+              id={service.id}
               className="relative group flex flex-col lg:flex-row bg-white shadow-lg rounded-lg overflow-hidden transform transition-all duration-300 hover:scale-105 hover:z-10"
             >
               {/* Left - Image */}

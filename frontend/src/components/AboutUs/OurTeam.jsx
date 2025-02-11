@@ -5,15 +5,14 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { FaLinkedin, FaTwitter, FaGithub } from "react-icons/fa";
-import sourabambule from "../../assets/SwapnilProfile.jpg"
-import koustubhdeokate from "../../assets/KoustubhProfile.png"
+import placeholder from "../../assets/user.jpg"
 
 const teamMembers = [
   {
     name: "KOUSTUBH DEOKATE",
     position: "Co-Founder And CFO",
     description: "Expert in frontend and backend development with 10+ years of experience.",
-    image: koustubhdeokate,
+    image: placeholder,
     linkedin: "https://linkedin.com",
     twitter: "https://twitter.com",
     github: "https://github.com",
@@ -22,16 +21,16 @@ const teamMembers = [
     name: "SWAPNIL AMBULE",
     position: "Founder And CEO",
     description: "Specialist in user interface and user experience design.",
-    image: sourabambule,
+    image: placeholder,
     linkedin: "https://linkedin.com",
     twitter: "https://twitter.com",
     github: "https://github.com",
   },
   {
-    name: "SWAPNIL AMBULE",
-    position: "Founder And CEO",
+    name: "NAVIN BHANDARI",
+    position: "CFO",
     description: "Specialist in user interface and user experience design.",
-    image: sourabambule,
+    image: placeholder,
     linkedin: "https://linkedin.com",
     twitter: "https://twitter.com",
     github: "https://github.com",

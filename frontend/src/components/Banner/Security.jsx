@@ -33,18 +33,18 @@ export const FadeUp = (delay) => ({
 
 const Security = () => {
   const services = [
-    { image: access, name: "Access Control" },
-    { image: cctv, name: "CCTV Survillance" },
-    { image: fire, name: "Fire Suppression" },
-    { image: time, name: "Time Attendance" },
-    { image: boom, name: "Boom Barrier" },
-    { image: firealarm, name: "Fire Alarm" },
-    { image: network, name: "Network & Communication" },
-    { image: vehicle, name: "Vehicle Tracking" },
-    { image: bulgar, name: "Burglar Alarm" },
-    { image: hydrant, name: "Fire Hydrant" },
-    { image: pasys, name: "PA System" },
-    { image: video, name: "Video Door Phone" }
+    { image: access, name: "Access Control",link:"/securitysolutions#accesscontrol"},
+    { image: cctv, name: "CCTV Survillance",link:"/securitysolutions#cctv"},
+    { image: fire, name: "Fire Suppression",link:"/securitysolutions#firesuppression"},
+    { image: time, name: "Time Attendance",link:"/securitysolutions#timeattendance"},
+    { image: boom, name: "Boom Barrier",link:"/securitysolutions#boombarrier"},
+    { image: firealarm, name: "Fire Alarm",link:"/securitysolutions#firealarm"},
+    { image: network, name: "Network & Communication",link:"/securitysolutions#networkandcommunication"},
+    { image: vehicle, name: "Vehicle Tracking",link:"/securitysolutions#vehicletracking"},
+    { image: bulgar, name: "Burglar Alarm",link:"/securitysolutions#burglaralarm"},
+    { image: hydrant, name: "Fire Hydrant",link:"/securitysolutions#firehydrant"},
+    { image: pasys, name: "PA System",link:"/securitysolutions#pasystem"},
+    { image: video, name: "Video Door Phone",link:"/securitysolutions#videodoorphone"}
   ];
 
   return (
@@ -63,6 +63,7 @@ const Security = () => {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {services.map((service, index) => (
+            <a href={service.link}>
             <motion.div
               key={index}
               variants={FadeUp(0.1 * index)}
@@ -78,6 +79,7 @@ const Security = () => {
               />
               <p className="text-lg mt-4 text-center">{service.name}</p>
             </motion.div>
+            </a>
           ))}
         </div>
       </div>

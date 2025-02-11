@@ -8,6 +8,7 @@ import consult from "../../assets/it-consultant.png"
 import data from "../../assets/data-management.png"
 import cloud from "../../assets/cloud-computing.png"
 import ai from "../../assets/ai-solutions.png"
+import { a } from "framer-motion/client";
 
 export const FadeUp = (delay) => ({
   initial: {
@@ -29,15 +30,15 @@ export const FadeUp = (delay) => ({
 
 const ITservices = () => {
   const services = [
-    { image: webdesign, name: "Web Design" },
-    { image: software, name: "Software Development" },
-    { image: website, name: "Website Development" },
-    { image: cyber, name: "Cybersecurity Solutions" },
-    { image: consult, name: "IT Consulting and Strategy" },
-    { image: ai, name: "AI Solutions" },
-    { image: data, name: "Data Management" },
-    { image: cloud, name: "Cloud Computing" }
-  ];
+    { image: webdesign, name: "Web Design",id:"webdesign",link:"/itservices#webdesign"},
+    { image: software, name: "Software Development",id:"softwaredevelopment",link:"/itservices#softwaredevelopment"},
+    { image: website, name: "Website Development",id:"webdevelopment",link:"/itservices#webdevelopment"},
+    { image: cyber, name: "Cybersecurity Solutions",id:"cybersecurity",link:"/itservices#cybersecurity"},
+    { image: consult, name: "IT Consulting and Strategy",id:"itconsulting",link:"/itservices#itconsulting"},
+    { image: ai, name: "AI Solutions",id:"ai",link:"/itservices#ai"},
+    { image: data, name: "Data Management",id:"datamanagement",link:"/itservices#datamanagement"},
+    { image: cloud, name: "Cloud Computing",id:"cloudcomputing",link:"/itservices#cloudcomputing"}
+  ]; 
 
   return (
     <section className="py-14 md:py-15 bg-light flex justify-center">
@@ -55,6 +56,7 @@ const ITservices = () => {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {services.map((service, index) => (
+            <a href={service.link}>
             <motion.div
               key={index}
               variants={FadeUp(0.1 * index)}
@@ -70,6 +72,7 @@ const ITservices = () => {
               />
               <p className="text-lg mt-4 text-center">{service.name}</p>
             </motion.div>
+            </a>
           ))}
         </div>
       </div>

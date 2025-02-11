@@ -27,14 +27,13 @@ export const FadeUp = (delay) => ({
 
 const Automation = () => {
   const services = [
-    { icon: <HiLightBulb className="text-2xl" />, name: "Light Automation" },
-    { icon: <BsBuildingFillGear className="text-2xl" />, name: "BMS" },
-    { icon: <MdOutlineDoorSliding className="text-2xl" />, name: "Automatic Door" },
-    { icon: <FaToriiGate className="text-2xl" />, name: "Gate Automation" },
-    { icon: <FaUserLock className="text-2xl" />, name: "Hotel Lock" },
-    { icon: <GiMovementSensor className="text-2xl" />, name: "Occupancy Sensor" },
-    { icon: <BiSolidCameraMovie className="text-2xl" />, name: "Home Theatre" },
-    { icon: <GiDoorHandle className="text-2xl" />, name: "Smart Lock" },
+    { icon: <HiLightBulb className="text-2xl" />, name: "Light Automation",id:"lightautomation",link:"/automationservices#lightautomation"},
+    { icon: <BsBuildingFillGear className="text-2xl" />, name: "BMS",id:"bms",link:"/automationservices#bms"},
+    { icon: <FaToriiGate className="text-2xl" />, name: "Gate Automation",id:"gateautomation",link:"/automationservices#gateautomation"},
+    { icon: <FaUserLock className="text-2xl" />, name: "Hotel Lock",id:"hotellock",link:"/automationservices#hotellock"},
+    { icon: <GiMovementSensor className="text-2xl" />, name: "Occupancy Sensor",id:"occupancysensor",link:"/automationservices#occupancysensor"},
+    { icon: <BiSolidCameraMovie className="text-2xl" />, name: "Home Theatre",id:"hometheatre",link:"/automationservices#hometheatre"},
+    { icon: <GiDoorHandle className="text-2xl" />, name: "Smart Lock",id:"smartlock",link:"/automationservices#smartlock"},
   ];
 
   return (
@@ -53,17 +52,22 @@ const Automation = () => {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {services.map((service, index) => (
+            <a href={service.link}>
             <motion.div
               key={index}
+              id={service.id}
               variants={FadeUp(0.1 * index)}
               initial="initial"
               whileInView="animate"
               viewport={{ once: true }}
               className="flex flex-col items-center p-6 bg-[#d6d4d4] rounded-xl hover:bg-[#e0dede] duration-300 hover:shadow-md"
             >
+              
               {service.icon}
               <p className="text-lg mt-4 text-center">{service.name}</p>
+              
             </motion.div>
+            </a>
           ))}
         </div>
       </div>

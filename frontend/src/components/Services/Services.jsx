@@ -11,42 +11,42 @@ const ServicesData = [
   {
     id: 1,
     title: "Home Automation",
-    link: "#",
+    link: "/automationservices#homeautomation",
     image: homeautomation,
     delay: 0.2,
   },
   {
     id: 2,
     title: "Solar Services",
-    link: "#",
+    link: "/solarservices",
     image: solarservice,
     delay: 0.3,
   },    
   {
     id: 3,
     title: "Security Solutions",
-    link: "#",
+    link: "/securityservices",
     image: securitysol,
     delay: 0.4,
   },
   {
     id: 4,
     title: "Building & Commercial Automation",
-    link: "#",
+    link: "/automationservices#bms",
     image: building,
     delay: 0.5,
   },
   {
     id: 5,
     title: "IT Services",
-    link: "#",
+    link: "/itservices",
     image: itservice,
     delay: 0.6,
   },
   {
     id: 6,
     title: "Office & Factory Automation",
-    link: "#",
+    link: "/automationservices",
     image: officefactory,
     delay: 0.7,
   },
@@ -85,10 +85,12 @@ const Services = () => {
               viewport={{ once: true }}
               className="bg-[#f4f4f4] rounded-2xl flex flex-col gap-4 items-center justify-center p-4 py-7 hover:bg-white hover:scale-110 duration-300 hover:shadow-2xl"
             >
+              <a href={service.link}>
               <div className="text-4xl mb-4"><img src={service.image} alt="image" className="h-20 w-20"/></div>
               <h1 className="text-lg font-semibold text-center px-3">
                 {service.title}
               </h1>
+              </a>
             </motion.div>
           ))}
         </div>

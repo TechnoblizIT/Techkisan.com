@@ -25,10 +25,10 @@ export const FadeUp = (delay) => ({
 
 const Solar = () => {
   const services = [
-    { image: OnGrid, name: "On Grid" },
-    { image: OffGrid, name: "Off Grid" },
-    { image: inverter, name: "Inverter" },
-    { image: battery, name: "Battery" }
+    { image: OnGrid, name: "On Grid",id:"ongrid",link:"/solarservices#ongrid"},
+    { image: OffGrid, name: "Off Grid",id:"offgrid",link:"/solarservices#offgrid"},
+    { image: inverter, name: "Inverter",id:"inverter",link:"/solarservices#inverter"},
+    { image: battery, name: "Battery",id:"battery",link:"/solarservices#battery"}
   ];
 
   return (
@@ -47,6 +47,7 @@ const Solar = () => {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {services.map((service, index) => (
+            <a href={service.link}>
             <motion.div
               key={index}
               variants={FadeUp(0.1 * index)}
@@ -62,6 +63,7 @@ const Solar = () => {
               />
               <p className="text-lg mt-4 text-center">{service.name}</p>
             </motion.div>
+            </a>
           ))}
         </div>
       </div>

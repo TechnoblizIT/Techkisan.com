@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { FaCheckCircle } from "react-icons/fa";
 import automationservices from "../../assets/automationservices.jpg";
 import homeautomation from "../../assets/home-automation.jpg";
@@ -12,11 +12,13 @@ import hometheatre from "../../assets/home-theatre.jpg";
 import nurse from "../../assets/nurse-calling-system.jpg";
 import smartlock from "../../assets/Smart-Lock.jpg";
 import Footer from "../Footer/Footer";
+import { useLocation } from "react-router-dom";
 
-// Services with dynamic checklists
+
 const services = [
   {
     title: "Home Automation",
+    id: "homeautomation",
     description:
       "Home automation transforms your living space with smart systems that enhance convenience, security, and energy efficiency.",
     image: homeautomation,
@@ -31,6 +33,7 @@ const services = [
   },
   {
     title: "Light Automation",
+    id: "lightautomation",
     description:
       "Light automation enhances comfort and energy efficiency by providing smart control over your home or office lighting.",
     image: lightautomation,
@@ -45,6 +48,7 @@ const services = [
   },
   {
     title: "Building Management System (BMS)",
+    id: "bms",
     description:
       "A Building Management System (BMS) optimizes energy use, enhances security, and ensures seamless control of all building operations.",
     image: bms,
@@ -59,6 +63,7 @@ const services = [
   },
   {
     title: "Automatic Door",
+    id: "automaticdoor",
     description:
       "Automatic doors offer seamless access, enhanced security, and convenience for homes and businesses.",
     image: autodoor,
@@ -73,6 +78,7 @@ const services = [
   },
   {
     title: "Gate Automation",
+    id: "gateautomation",
     description:
       "Gate automation combines security, convenience, and modern technology to control access to your property effortlessly.",
     image: gate,
@@ -87,6 +93,7 @@ const services = [
   },
   {
     title: "Hotel Lock",
+    id: "hotellock",
     description:
       "Hotel lock systems provide secure, efficient, and modern access solutions for guests and staff.",
     image: hotel,
@@ -101,6 +108,7 @@ const services = [
   },
   {
     title: "Occupancy Sensor",
+    id: "occupancysensor",
     description:
       "Occupancy sensors optimize energy use and enhance convenience by detecting movement to control lighting and other systems automatically.",
     image: occupancy,
@@ -115,6 +123,7 @@ const services = [
   },
   {
     title: "Home Theatre",
+    id: "hometheatre",
     description:
       "A home theatre system delivers a cinematic experience in the comfort of your home.",
     image: hometheatre,
@@ -129,6 +138,7 @@ const services = [
   },
   {
     title: "Nurse Calling System",
+    id: "nursecalling",
     description:
       "The Nurse Calling System ensures prompt and efficient communication between patients and medical staff.",
     image: nurse,
@@ -143,6 +153,7 @@ const services = [
   },
   {
     title: "Smart Lock",
+    id: "smartlock",
     description:
       "Smart locks provide keyless entry and enhanced security for homes and businesses.",
     image: smartlock,
@@ -158,68 +169,82 @@ const services = [
 ];
 
 const AutomationServices = () => {
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.hash) {
+      const id = location.hash.replace("#", "");
+      const section = document.getElementById(id);
+      if (section) {
+        setTimeout(() => {
+          section.scrollIntoView({ behavior: "smooth", block: "center" });
+        }, 300); 
+      }
+    }
+  }, [location]);
   return (
     <>
-    <div>
-      {/* Parallax Section */}
-      <section
-        className="relative bg-cover bg-center h-96"
-        style={{ backgroundImage: `url(${automationservices})` }}
-      >
-        <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-          <div className="text-center text-white">
-            <h1 className="text-4xl font-bold">Automation</h1>
-            <p className="mt-2">"Simplifying Life with Smart Solutions"</p>
+      <div>
+    
+        <section
+          className="relative bg-cover bg-center h-96"
+          style={{ backgroundImage: `url(${automationservices})` }}
+        >
+          <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+            <div className="text-center text-white">
+              <h1 className="text-4xl font-bold">Automation</h1>
+              <p className="mt-2">"Simplifying Life with Smart Solutions"</p>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Services Section */}
-      <div className="container mx-auto py-16 px-6 max-w-7xl">
-        <h2 className="text-3xl font-bold text-center text-gray-800 mb-12">
-          Our Automation Services
-        </h2>
+ 
+        <div className="container mx-auto py-16 px-6 max-w-7xl">
+          <h2 className="text-3xl font-bold text-center text-gray-800 mb-12">
+            Our Automation Services
+          </h2>
 
-        <div className="grid gap-10 lg:grid-cols-1 relative">
-          {services.map((service, index) => (
-            <div
-              key={index}
-              className="relative group flex flex-col lg:flex-row bg-white shadow-lg rounded-lg overflow-hidden transform transition-all duration-300 hover:scale-105 hover:z-10"
-            >
-              {/* Left - Image */}
-              <div className="lg:w-1/3">
-                <img
-                  src={service.image}
-                  alt={service.title}
-                  className="w-full max-h-64 object-cover"
-                />
-              </div>
-
-              {/* Right - Content */}
-              <div className="lg:w-2/3 p-6 flex flex-col justify-center relative z-10">
-                <div className="bg-gray-100 p-4 rounded-lg shadow">
-                  <h3 className="text-xl font-semibold text-gray-800">
-                    {service.title}
-                  </h3>
-                  <p className="text-gray-600 mt-2">{service.description}</p>
+          <div className="grid gap-10 lg:grid-cols-1 relative">
+            {services.map((service, index) => (
+              <div
+                key={index}
+                id={service.id}
+                className="relative group flex flex-col lg:flex-row bg-white shadow-lg rounded-lg overflow-hidden transform transition-all duration-300 hover:scale-105 hover:z-10"
+              >
+            
+                <div className="lg:w-1/3">
+                  <img
+                    src={service.image}
+                    alt={service.title}
+                    className="w-full max-h-64 object-cover"
+                  />
                 </div>
 
-                {/* Dynamic Checklist */}
-                <ul className="mt-4 grid grid-cols-2 md:grid-cols-3 gap-4 text-gray-700">
-                  {service.features.map((feature, i) => (
-                    <li key={i} className="flex items-center gap-2">
-                      <FaCheckCircle className="text-green-500" />
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
+            
+                <div className="lg:w-2/3 p-6 flex flex-col justify-center relative z-10">
+                  <div className="bg-gray-100 p-4 rounded-lg shadow">
+                    <h3 className="text-xl font-semibold text-gray-800">
+                      {service.title}
+                    </h3>
+                    <p className="text-gray-600 mt-2">{service.description}</p>
+                  </div>
+
+               
+                  <ul className="mt-4 grid grid-cols-2 md:grid-cols-3 gap-4 text-gray-700">
+                    {service.features.map((feature, i) => (
+                      <li key={i} className="flex items-center gap-2">
+                        <FaCheckCircle className="text-green-500" />
+                        {feature}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
-    </div>
-    <Footer/>
+      <Footer />
     </>
   );
 };
