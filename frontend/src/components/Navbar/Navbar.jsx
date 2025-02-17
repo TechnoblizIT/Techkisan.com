@@ -160,6 +160,7 @@ const Navbar = () => {
                 {/* Mobile Menu Options */}
                 {NavbarMenu.map((item) => (
                   <li key={item.id} className="relative">
+                  <Link to={item.path}>
                     <div
                       className="block py-2 px-4 cursor-pointer rounded-lg hover:bg-gray-200"
                       onClick={() => {
@@ -174,6 +175,7 @@ const Navbar = () => {
                     >
                       {item.title}
                     </div>
+                    </Link>
 
                     {/* Show dropdown menu if active */}
                     {item.dropdown && activeDropdown === item.id && (
