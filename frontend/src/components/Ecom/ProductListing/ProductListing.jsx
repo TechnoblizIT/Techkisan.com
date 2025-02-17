@@ -65,9 +65,14 @@ function ProductListing() {
       <header className="bg-white shadow-sm sticky top-0 z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4 sm:gap-0">
-            <div>
+            <div className="flex flex-row items-center gap-4">
               <img src={LOGO} alt="LOGO" className="w-40 h-20 object-contain" />
+              <Link to={"/"} className="primary-btn ">
+              Home
+            </Link>
             </div>
+
+            
             <div className="flex items-center space-x-4 w-full sm:w-auto">
               <div className="relative flex-1 sm:flex-initial">
                 <input
