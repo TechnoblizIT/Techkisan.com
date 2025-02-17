@@ -28,11 +28,11 @@ const NavbarMenu = [
     id: 4,
     title: "Shop",
     dropdown: [
-      { id: 1, title: "Products", path: "/" },
+      { id: 1, title: "Products", path: "/store" },
       {
         id: 2,
         title: "Cart",
-        path: "/",
+        path: "/store/cart",
       },
       { id: 3, title: "Orders", path: "/" },
     ],
