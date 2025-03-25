@@ -24,19 +24,7 @@ const NavbarMenu = [
       { id: 4, title: "IT Services", path: "/itservices" },
     ],
   },
-  {
-    id: 4,
-    title: "Shop",
-    dropdown: [
-      { id: 1, title: "Products", path: "/store" },
-      {
-        id: 2,
-        title: "Cart",
-        path: "/store/cart",
-      },
-      { id: 3, title: "Orders", path: "/" },
-    ],
-  },
+
   {
     id: 3,
     title: "About Us",

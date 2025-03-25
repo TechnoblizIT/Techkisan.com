@@ -1,5 +1,5 @@
 import React from "react";
-import { motion } from "framer-motion";
+import { color, motion } from "framer-motion";
 
 const Footer = () => {
   return (
@@ -17,68 +17,71 @@ const Footer = () => {
             itemType="https://schema.org/PostalAddress"
             className="space-y-4 max-w-[300px] text-dark2"
           >
-            <h1 className="text-2xl font-bold text-black">Address</h1>
+            <h1 className="text-2xl font-bold text-black" style={{color:"black"}}>Contact Info</h1>
             <p>
-              <strong>Address: </strong>
-              <span itemProp="streetAddress">
-                Nakade Complex, Near Sai Mandir,<br /> Mama Chowk, Gondia
+              <strong style={{color:"#009933"}}>Address: </strong>
+              <span itemProp="streetAddress" style={{color:"black"}} className="font-light" >
+                Nakade Complex, Near Sai Mandir, Mama Chowk, Gondia
               </span>
               ,<br />
-              <span itemProp="addressLocality">Maharashtra</span>,{" "}
-              <span itemProp="addressRegion">Maharashtra</span> -{" "}
-              <span itemProp="postalCode">441601</span>{" "}
-              <span itemProp="addressCountry">India</span>.
+    
+              <span itemProp="addressRegion" style={{color:"black"}} className="font-light">Maharashtra</span> -{" "}
+              <span itemProp="postalCode" style={{color:"black"}} className="font-light">441601</span>{" "}
+              <br/>
+              <span itemProp="addressCountry" style={{color:"black"}} className="font-light">India</span>.
             </p>
             <p>
-              <strong>Telephone: </strong>
-              <span itemProp="telephone">7972025213, 9511831914</span>
+              <strong style={{color:"#009933"}}>Telephone: </strong>
+              <span itemProp="telephone" style={{color:"black"}} className="font-light">7972025213, 9511831914</span>
             </p>
             <p>
-              <strong>Email: </strong>
+              <strong style={{color:"#009933"}}>Email: </strong>
               <span itemProp="email">
                 <a
                   href="mailto:info@techkisan.in"
-                  className="text-primary hover:underline"
+                  className="text-primary hover:underline font-light"
+                  style={{color:"black"}}
                 >
-                  info@techkisan.in
+                  tkn.automation@gmail.com
                 </a>
                 ,{" "}
                 <a
                   href="mailto:sales@techkisan.in"
-                  className="text-primary hover:underline"
+                  className="text-primary hover:underline font-light"
+                  style={{color:"black"}}
                 >
-                  sales@techkisan.in
+                  hr@techkisan.in
                 </a>
               </span>
             </p>
             <p>
-              <strong>Sub Offices: </strong>
+              <strong style={{color:"#009933"}}>Sub Offices: </strong>
               <span itemProp="sub-offices">
-                <a href="#" className="text-primary hover:underline">
+                <a href="#" className="text-primary hover:underline font-light" style={{color:"black"}}>
                   Pune (MH)
                 </a>
               </span>
               <span> | </span>
               <span itemProp="sub-offices">
-                <a href="#" className="text-primary hover:underline">
+                <a href="#" className="text-primary hover:underline font-light" style={{color:"black"}}>
                   Nagpur (MH)
                 </a>
               </span>
               <span> | </span>
               <span itemProp="sub-offices">
-                <a href="#" className="text-primary hover:underline">
+                <a href="#" className="text-primary hover:underline font-light" style={{color:"black"}}>
                   Betul (MP)
                 </a>
               </span>
               <span> | </span>
               <span itemProp="sub-offices">
-                <a href="#" className="text-primary hover:underline">
+                <a href="#" className="text-primary hover:underline font-light" style={{color:"black"}}>
                   Chandrapur (MH)
                 </a>
               </span>
               <span> | </span>
               <span itemProp="sub-offices">
-                <a href="#" className="text-primary hover:underline">
+                <a href="#" className="text-primary hover:underline font-light" style={{color:"black"}}>
                   Wardha (MH)
                 </a>
               </span>
@@ -90,25 +93,25 @@ const Footer = () => {
             <h1 className="text-2xl font-bold">Links</h1>
             <div className="text-dark2">
               <ul className="space-y-2 text-lg">
-                <li className="cursor-pointer hover:text-secondary duration-200">
+                <li className="cursor-pointer hover:text-secondary duration-200"  style={{color:"black"}}>
                   Home
                 </li>
-                <li className="cursor-pointer hover:text-secondary duration-200">
+                <li className="cursor-pointer hover:text-secondary duration-200"  style={{color:"black"}}>
                   <a href="/automationservices">Automation Services</a>
                 </li>
-                <li className="cursor-pointer hover:text-secondary duration-200">
+                <li className="cursor-pointer hover:text-secondary duration-200"  style={{color:"black"}}>
                   <a href="/solarservices">Solar Services</a>
                 </li>
-                <li className="cursor-pointer hover:text-secondary duration-200">
+                <li className="cursor-pointer hover:text-secondary duration-200"  style={{color:"black"}}>
                   <a href="/securitysolutions">Security Solutions</a>
                 </li>
-                <li className="cursor-pointer hover:text-secondary duration-200">
+                <li className="cursor-pointer hover:text-secondary duration-200"  style={{color:"black"}}>
                   <a href="/itservices">IT Services</a>
                 </li>
-                <li className="cursor-pointer hover:text-secondary duration-200">
+                <li className="cursor-pointer hover:text-secondary duration-200"  style={{color:"black"}}>
                   About
                 </li>
-                <li className="cursor-pointer hover:text-secondary duration-200">
+                <li className="cursor-pointer hover:text-secondary duration-200"  style={{color:"black"}}>
                   Contact
                 </li>
               </ul>
