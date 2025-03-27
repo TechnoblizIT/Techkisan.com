@@ -19,8 +19,9 @@ const Footer = () => {
           >
             <h1 className="text-2xl font-bold text-black" style={{color:"black"}}>Contact Info</h1>
             <p>
-              <strong style={{color:"#009933"}}>Address: </strong>
+              <strong style={{color:"#009933", fontSize:"18px"}}>Head Office: </strong>
               <span itemProp="streetAddress" style={{color:"black"}} className="font-light" >
+                <b>Techkisan Automation</b> <br></br>
                 Nakade Complex, Near Sai Mandir, Mama Chowk, Gondia
               </span>
               ,<br />
@@ -55,34 +56,23 @@ const Footer = () => {
               </span>
             </p>
             <p>
-              <strong style={{color:"#009933"}}>Sub Offices: </strong>
+              <strong style={{color:"#009933"}}>Sub Offices & Service Locations: </strong>
+              <br></br>
               <span itemProp="sub-offices">
                 <a href="#" className="text-primary hover:underline font-light" style={{color:"black"}}>
-                  Pune (MH)
+                Maharashtra
                 </a>
               </span>
               <span> | </span>
               <span itemProp="sub-offices">
                 <a href="#" className="text-primary hover:underline font-light" style={{color:"black"}}>
-                  Nagpur (MH)
+                Madhya Pradesh
                 </a>
               </span>
               <span> | </span>
               <span itemProp="sub-offices">
                 <a href="#" className="text-primary hover:underline font-light" style={{color:"black"}}>
-                  Betul (MP)
-                </a>
-              </span>
-              <span> | </span>
-              <span itemProp="sub-offices">
-                <a href="#" className="text-primary hover:underline font-light" style={{color:"black"}}>
-                  Chandrapur (MH)
-                </a>
-              </span>
-              <span> | </span>
-              <span itemProp="sub-offices">
-                <a href="#" className="text-primary hover:underline font-light" style={{color:"black"}}>
-                  Wardha (MH)
+                Chhattisgarh
                 </a>
               </span>
             </p>
