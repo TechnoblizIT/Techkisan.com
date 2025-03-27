@@ -11,7 +11,7 @@ const teamMembers = [
   {
     name: "KOUSTUBH DEOKATE",
     position: "Co-Founder And CFO",
-    description: "Expert in frontend and backend development with 10+ years of experience.",
+    description: "Strategic leader driving financial growth and technological innovation at Techkisan Automation.",
     image: placeholder,
     linkedin: "https://linkedin.com",
     twitter: "https://twitter.com",
@@ -20,16 +20,7 @@ const teamMembers = [
   {
     name: "SWAPNIL AMBULE",
     position: "Founder And CEO",
-    description: "Specialist in user interface and user experience design.",
-    image: placeholder,
-    linkedin: "https://linkedin.com",
-    twitter: "https://twitter.com",
-    github: "https://github.com",
-  },
-  {
-    name: "NAVIN BHANDARI",
-    position: "CFO",
-    description: "Specialist in user interface and user experience design.",
+    description: "Visionary leader driving innovation, growth, and automation at Techkisan Automation.",
     image: placeholder,
     linkedin: "https://linkedin.com",
     twitter: "https://twitter.com",
