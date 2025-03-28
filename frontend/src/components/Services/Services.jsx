@@ -25,14 +25,14 @@ const ServicesData = [
   {
     id: 3,
     title: "Security Solutions",
-    link: "/securityservices",
+    link: "/securitysolutions",
     image: securitysol,
     delay: 0.4,
   },
   {
     id: 4,
     title: "Building & Commercial Automation",
-    link: "/automationservices#bms",
+    link: "/automationservices",
     image: building,
     delay: 0.5,
   },

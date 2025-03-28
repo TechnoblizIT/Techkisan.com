@@ -19,24 +19,23 @@ const Footer = () => {
           >
             <h1 className="text-2xl font-bold text-black" style={{color:"black"}}>Contact Info</h1>
             <p>
-              <strong style={{color:"#009933", fontSize:"18px"}}>Head Office: </strong>
+              <strong className="text-green-600 font-semibold">Head Office: </strong>
               <span itemProp="streetAddress" style={{color:"black"}} className="font-light" >
                 <b>Techkisan Automation</b> <br></br>
                 Nakade Complex, Near Sai Mandir, Mama Chowk, Gondia
               </span>
               ,<br />
     
-              <span itemProp="addressRegion" style={{color:"black"}} className="font-light">Maharashtra</span> -{" "}
-              <span itemProp="postalCode" style={{color:"black"}} className="font-light">441601</span>{" "}
-              <br/>
-              <span itemProp="addressCountry" style={{color:"black"}} className="font-light">India</span>.
+              <span itemProp="addressRegion" style={{color:"black"}} className="font-light">Maharashtra,</span>{" "}
+              <span itemProp="postalCode" style={{color:"black"}} className="font-light">India</span> -{" "}
+              <span itemProp="addressCountry" style={{color:"black"}} className="font-light">441601</span>
             </p>
             <p>
-              <strong style={{color:"#009933"}}>Telephone: </strong>
+              <strong className="text-green-600 font-medium">Telephone: </strong>
               <span itemProp="telephone" style={{color:"black"}} className="font-light">7972025213, 9511831914</span>
             </p>
             <p>
-              <strong style={{color:"#009933"}}>Email: </strong>
+              <strong className="text-green-600 font-medium">Email: </strong>
               <span itemProp="email">
                 <a
                   href="mailto:info@techkisan.in"
@@ -56,8 +55,7 @@ const Footer = () => {
               </span>
             </p>
             <p>
-              <strong style={{color:"#009933"}}>Sub Offices & Service Locations: </strong>
-              <br></br>
+              <strong className="text-green-600 font-medium">Services In: </strong>
               <span itemProp="sub-offices">
                 <a href="#" className="text-primary hover:underline font-light" style={{color:"black"}}>
                 Maharashtra
@@ -84,9 +82,6 @@ const Footer = () => {
             <div className="text-dark2">
               <ul className="space-y-2 text-lg">
                 <li className="cursor-pointer hover:text-secondary duration-200"  style={{color:"black"}}>
-                  Home
-                </li>
-                <li className="cursor-pointer hover:text-secondary duration-200"  style={{color:"black"}}>
                   <a href="/automationservices">Automation Services</a>
                 </li>
                 <li className="cursor-pointer hover:text-secondary duration-200"  style={{color:"black"}}>
@@ -99,10 +94,10 @@ const Footer = () => {
                   <a href="/itservices">IT Services</a>
                 </li>
                 <li className="cursor-pointer hover:text-secondary duration-200"  style={{color:"black"}}>
-                  About
+                  <a href="/aboutus">About</a>
                 </li>
                 <li className="cursor-pointer hover:text-secondary duration-200"  style={{color:"black"}}>
-                  Contact
+                  <a href="/contactus">Contact</a>
                 </li>
               </ul>
             </div>
@@ -124,6 +119,8 @@ const Footer = () => {
             </div>
           </div>
         </div>
+        <br></br>
+        <div className="text-center"><span className="text-green-700">Techkisan Automation </span>- All Rights Reserved. © 2025</div>
       </motion.div>
     </footer>
   );
