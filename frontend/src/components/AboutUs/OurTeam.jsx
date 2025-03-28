@@ -4,7 +4,7 @@ import { Pagination, Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-import { FaLinkedin, FaTwitter, FaGithub } from "react-icons/fa";
+import { FaLinkedin, FaTwitter, FaFacebook, FaInstagram} from "react-icons/fa";
 import placeholder from "../../assets/user.jpg"
 
 const teamMembers = [
@@ -15,7 +15,8 @@ const teamMembers = [
     image: placeholder,
     linkedin: "https://linkedin.com",
     twitter: "https://twitter.com",
-    github: "https://github.com",
+    facebook: "https://www.facebook.com",
+    Instagram: "htpps://www.instagram.com",
   },
   {
     name: "SWAPNIL AMBULE",
@@ -24,7 +25,8 @@ const teamMembers = [
     image: placeholder,
     linkedin: "https://linkedin.com",
     twitter: "https://twitter.com",
-    github: "https://github.com",
+    facebook: "https://www.facebook.com",
+    Instagram: "htpps://www.instagram.com",
   },
 ];
 
@@ -35,15 +37,18 @@ const TeamMemberCard = ({ member }) => (
     <p className="text-gray-600 text-center">{member.position}</p>
     <p className="text-gray-700 mt-2 text-center">{member.description}</p>
     <div className="flex justify-center mt-4">
-      <a href={member.linkedin} className="text-blue-500 mx-2">
+      {/* <a href={member.linkedin} className="text-blue-500 mx-2">
         <FaLinkedin size={20} />
       </a>
       <a href={member.twitter} className="text-blue-400 mx-2">
         <FaTwitter size={20} />
       </a>
-      <a href={member.github} className="text-gray-800 mx-2">
-        <FaGithub size={20} />
+      <a href={member.facebook} className="text-blue-500 mx-2">
+        <FaFacebook size={20} />
       </a>
+      <a href={member.instagram} className="text-pink-700 mx-2">
+        <FaInstagram size={20} />
+      </a> */}
     </div>
   </div>
 );

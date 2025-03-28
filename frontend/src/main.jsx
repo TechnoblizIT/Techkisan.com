@@ -14,6 +14,7 @@ import ProductListing from "./components/Ecom/ProductListing/ProductListing.jsx"
 import Cart from "./components/Ecom/Cart/Cart.jsx";
 import ProductPage from "./components/Ecom/IndividualProduct/ProductPage.jsx";
 import PlaceOrder from "./components/Ecom/Placeorder/PlaceOrder.jsx";
+import ContactUs from "./components/ContactUs/ContactUs.jsx";
 
 const router = createBrowserRouter([
   {
@@ -27,6 +28,7 @@ const router = createBrowserRouter([
       { path: "/securitysolutions", element: <SecurityServicesPage /> },
       { path: "/solarservices", element: <SolarServicesPage /> },
       { path: "/aboutus", element: <AboutUs /> },
+      { path: "/contactus", element: <ContactUs /> },
     ],
   },
   {

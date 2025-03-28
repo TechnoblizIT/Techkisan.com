@@ -27,8 +27,14 @@ const NavbarMenu = [
 
   {
     id: 3,
-    title: "About Us",
+    title: "About",
     path: "/aboutus",
+  },
+
+  {
+    id: 4,
+    title: "Contact",
+    path: "/contactus",
   },
 ];
 
@@ -56,7 +62,7 @@ const Navbar = () => {
         {/* Logo section */}
         <div>
           <Link to={"/"}>
-            <img src={LOGO} alt="LOGO" className="w-40 h-20 object-contain" />
+            <img src={LOGO} alt="LOGO" className="w-60 h-20 object-contain" />
           </Link>
         </div>
         {/* Menu section */}
