@@ -1,5 +1,6 @@
 import { useState } from "react";
-
+import axios from "axios";
+import endpoints from "../endpoints/endpoints";
 const EnquiryForm = () => {
   const [form, setForm] = useState({
     name: "",
@@ -8,7 +9,7 @@ const EnquiryForm = () => {
     enquiry: "",
     description: "",
   });
-
+  const Endpoints=new endpoints()
   const [errors, setErrors] = useState({});
 
   const validate = () => {
@@ -50,15 +51,31 @@ const EnquiryForm = () => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
     if (validate()) {
-      console.log("Form submitted:", form);
+      try{
+      const response = await axios.post(Endpoints.CONTACT_US_URI,{
+        name: form.name,
+        email: form.email,
+        phone: form.phone,
+        enquiry: form.enquiry,
+        description: form.description,
+      })
+      if (response.status=200){
       alert("Form submitted successfully!");
       setForm({ name: "", email: "", phone: "", enquiry: "", description: "" });
       setErrors({});
+      }
+
+      }catch (error) {
+        console.error("Error sending form:", error);
+        alert("An error occurred while submitting the form. Please try again.");
+  
     }
-  };
+  }
+}
+ 
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100 p-4">
