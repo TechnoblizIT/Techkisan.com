@@ -15,6 +15,7 @@ import Cart from "./components/Ecom/Cart/Cart.jsx";
 import ProductPage from "./components/Ecom/IndividualProduct/ProductPage.jsx";
 import PlaceOrder from "./components/Ecom/Placeorder/PlaceOrder.jsx";
 import ContactUs from "./components/ContactUs/ContactUs.jsx";
+import Tickets from "./components/Tickets/Tickets.jsx";
 
 const router = createBrowserRouter([
   {
@@ -23,31 +24,35 @@ const router = createBrowserRouter([
     children: [
       { path: "/", element: <Home /> },
       { path: "/login", element: <SignInSignUp /> },
-      { path: "/automationservices", element: <AutomationServices /> },
-      { path: "/itservices", element: <ITServicesPage /> },
-      { path: "/securitysolutions", element: <SecurityServicesPage /> },
-      { path: "/solarservices", element: <SolarServicesPage /> },
       { path: "/aboutus", element: <AboutUs /> },
       { path: "/contactus", element: <ContactUs /> },
+      { path: "/tickets", element: <Tickets /> },
+
+      // Services routes
+      {
+        path: "services",
+        children: [
+          { path: "automation", element: <AutomationServices /> },
+          { path: "it", element: <ITServicesPage /> },
+          { path: "security", element: <SecurityServicesPage /> },
+          { path: "solar", element: <SolarServicesPage /> },
+        ],
+      },
+
+      // Store routes
+      {
+        path: "store",
+        children: [
+          { path: "", element: <ProductListing /> },        
+          { path: "cart", element: <Cart /> },             
+          { path: "product", element: <ProductPage /> },    
+          { path: "placeorder", element: <PlaceOrder /> },   
+        ],
+      },
     ],
   },
-  {
-    path: "/store",
-    element: <ProductListing />,
-  },
-  {
-    path: "/store/cart",
-    element: <Cart />,
-  },
-  {
-    path: "/store/product",
-    element: <ProductPage />,
-  },
-  {
-    path: "/store/placeorder",
-    element: <PlaceOrder />,
-  },
 ]);
+
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>

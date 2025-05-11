@@ -12,31 +12,40 @@ const NavbarMenu = [
   },
   {
     id: 2,
-    title: "Services",
-    dropdown: [
-      { id: 1, title: "Automations", path: "/automationservices" },
-      {
-        id: 2,
-        title: "Solar Services",
-        path: "/solarservices",
-      },
-      { id: 3, title: "Security Solutions", path: "/securitysolutions" },
-      { id: 4, title: "IT Services", path: "/itservices" },
-    ],
-  },
-
-  {
-    id: 3,
     title: "About",
     path: "/aboutus",
   },
-
   {
-    id: 4,
+    id: 3,
+    title: "Services",
+    dropdown: [
+      { id: 1, title: "Automations", path: "/services/automation" },
+      { id: 2, title: "Solar Services", path: "/services/solar" },
+      { id: 3, title: "Security Solutions", path: "/services/security" },
+      { id: 4, title: "IT Services", path: "/services/it" },
+    ],
+  },
+  // {
+  //   id: 4,
+  //   title: "Shop",
+  //   dropdown: [
+  //     { id: 1, title: "Products", path: "/store" },
+  //     { id: 2, title: "Cart", path: "/store/cart" },
+  //     { id: 3, title: "Place Order", path: "/store/placeorder" },
+  //   ],
+  // },
+  {
+    id: 5,
     title: "Contact",
     path: "/contactus",
   },
+  {
+    id: 6,
+    title: "Tickets",
+    path: "/tickets",
+  },
 ];
+
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
