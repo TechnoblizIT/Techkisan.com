@@ -3,6 +3,9 @@ import { IoMdClose, IoMdMenu } from "react-icons/io";
 import { motion } from "framer-motion";
 import LOGO from "./../../assets/logo.png";
 import { Link } from "react-router-dom";
+import endpoints from "../endpoints/endpoints";
+import { showSucess } from "../../utils/toastUtils";
+import { useNavigate } from "react-router-dom";
 
 const NavbarMenu = [
   {
@@ -25,15 +28,6 @@ const NavbarMenu = [
       { id: 4, title: "IT Services", path: "/services/it" },
     ],
   },
-  // {
-  //   id: 4,
-  //   title: "Shop",
-  //   dropdown: [
-  //     { id: 1, title: "Products", path: "/store" },
-  //     { id: 2, title: "Cart", path: "/store/cart" },
-  //     { id: 3, title: "Place Order", path: "/store/placeorder" },
-  //   ],
-  // },
   {
     id: 5,
     title: "Contact",
@@ -46,21 +40,68 @@ const NavbarMenu = [
   },
 ];
 
-
 const Navbar = () => {
+  const navigator = useNavigate();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
+  const [userData, setUserData] = useState(null);
+  const Endpoints = new endpoints();
 
-  // Toggle the mobile menu visibility
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
-  // Toggle the dropdown for the clicked menu
   const toggleDropdown = (id) => {
     setActiveDropdown(activeDropdown === id ? null : id);
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    setUserData(null);
+    showSucess("Logged Out Successfully");
+    navigator("/");
+  };
+
+  const fetchUserData = async () => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      setUserData(null);
+      return;
+    }
+
+    try {
+      const response = await fetch(Endpoints.LOGIN_USER_FETCH, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setUserData(data.user);
+      } else {
+        setUserData(null);
+      }
+    } catch (error) {
+      console.error("Failed to fetch user data:", error);
+      setUserData(null);
+    }
+  };
+
+  useEffect(() => {
+    fetchUserData();
+    const handleUserUpdated = () => {
+      fetchUserData();
+    };
+  
+    window.addEventListener("userUpdated", handleUserUpdated);
+  
+    return () => {
+      window.removeEventListener("userUpdated", handleUserUpdated);
+    };
+  }, []);
   return (
     <nav className="relative z-20">
       <motion.div
@@ -133,9 +174,17 @@ const Navbar = () => {
                 )}
               </li>
             ))}
-            <Link to={"/login"} className="primary-btn">
+           <>
+           {userData ? (
+            <button onClick={handleLogout} className="primary-btn">
+              Logout
+            </button>
+          ) : (
+            <Link to="/login" className="primary-btn">
               Sign In
             </Link>
+          )}
+           </>
           </ul>
         </div>
         {/* Mobile Hamburger menu section */}
@@ -163,21 +212,21 @@ const Navbar = () => {
                 {/* Mobile Menu Options */}
                 {NavbarMenu.map((item) => (
                   <li key={item.id} className="relative">
-                  <Link to={item.path}>
-                    <div
-                      className="block py-2 px-4 cursor-pointer rounded-lg hover:bg-gray-200"
-                      onClick={() => {
-                        // If the clicked item is Services or Shop, toggle its dropdown
-                        if (item.dropdown) {
-                          toggleDropdown(item.id);
-                        } else {
-                          // For other items, close the menu directly
-                          setIsMobileMenuOpen(false);
-                        }
-                      }}
-                    >
-                      {item.title}
-                    </div>
+                    <Link to={item.path}>
+                      <div
+                        className="block py-2 px-4 cursor-pointer rounded-lg hover:bg-gray-200"
+                        onClick={() => {
+                          // If the clicked item is Services or Shop, toggle its dropdown
+                          if (item.dropdown) {
+                            toggleDropdown(item.id);
+                          } else {
+                            // For other items, close the menu directly
+                            setIsMobileMenuOpen(false);
+                          }
+                        }}
+                      >
+                        {item.title}
+                      </div>
                     </Link>
 
                     {/* Show dropdown menu if active */}
@@ -220,13 +269,26 @@ const Navbar = () => {
                     )}
                   </li>
                 ))}
-                <Link
-                  to={"/login"}
-                  className="primary-btn"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  Sign In
-                </Link>
+
+                <>
+                  {userData ? (
+                    <Link
+                      to="/logout"
+                      className="primary-btn"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                    >
+                      Logout
+                    </Link>
+                  ) : (
+                    <Link
+                      to="/login"
+                      className="primary-btn"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                    >
+                      Sign In
+                    </Link>
+                  )}
+                </>
               </ul>
             </motion.div>
           )}
