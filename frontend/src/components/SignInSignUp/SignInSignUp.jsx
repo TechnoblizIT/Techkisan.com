@@ -2,9 +2,11 @@ import React, { useState, useEffect } from "react";
 import styles from "../../styles/SignInSignUp.module.css";
 import { showError, showSucess } from "../../utils/toastUtils";
 import endpoints from "../endpoints/endpoints";
+import { useNavigate } from "react-router-dom";
 
 const SignInSignUp = () => {
   const Endpoints = new endpoints();
+  const navigator = useNavigate();
   const [isSignUpMode, setIsSignUpMode] = useState(false);
   const [showForm, setShowForm] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -15,10 +17,17 @@ const SignInSignUp = () => {
     confirmPassword: "",
   });
 
+  const [formDataLogin ,setFormDataLogin] = useState({
+    email:"",
+    password:""
+  })
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-
+  const handleChangeLogin = (e) => {
+    setFormDataLogin({ ...formDataLogin, [e.target.name]: e.target.value });
+  };
   const validate = (type) => {
     if (!formData.email) {
       showError("Email is required");
@@ -47,11 +56,26 @@ const SignInSignUp = () => {
     return true;
   };
 
+  const loginvalidate = (type) => {
+    if (!formDataLogin.email) {
+      showError("Email is required");
+      return false;
+    } else if (!/\S+@\S+\.\S+/.test(formDataLogin.email)) {
+      showError("Email is not valid");
+      return false;
+    }
+    else if (!formDataLogin.password) {
+      showError("Password is required");
+      return false;
+    }
+    return true;
+  }
+
   const handleSignupFormSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
     const isValid = validate("signup");
     if (!isValid) return;
+    setLoading(true);
     const { name, email, password } = formData;
     try {
       const response = await fetch(Endpoints.SIGNUP_URI, {
@@ -67,15 +91,53 @@ const SignInSignUp = () => {
       });
       if (response.status === 200) {
         showSucess("User created successfully");
-      } else if (response.status === 500) {
-        showError("Internal server error");
+       const data = await response.json();
+        localStorage.setItem("token", data.token);
+       navigator("/")
+        setLoading(false)
+    }
+   } catch (err) {
+      console.log(err);
+      showError("Internal server error");
+      setLoading(false);
+    }
+  };
+  const handleLoginFormSubmit = async (e) => {
+    e.preventDefault();
+    
+    const isValid = loginvalidate("login");
+    if (!isValid) return;
+    setLoading(true);
+    const { email, password } = formDataLogin;
+    try {
+      const response = await fetch(Endpoints.LOGIN_URI, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+      });
+      if (response.status === 200) {
+        showSucess("User logged in successfully");
+        const data = await response.json();
+        localStorage.setItem("token", data.token);
+        window.dispatchEvent(new Event("userUpdated"));
+        navigator("/")
+        setLoading(false)
+      }
+      if (response.status === 401) {
+        showError("Invalid credentials");
+        setLoading(false);
       }
     } catch (err) {
       console.log(err);
       showError("Internal server error");
+      setLoading(false);
     }
-  };
-
+  }
   useEffect(() => {
     const timeout = setTimeout(() => {
       setShowForm(isSignUpMode);
@@ -178,19 +240,28 @@ const SignInSignUp = () => {
               </div>
             </form>
           ) : (
-            <form className={styles["sign-in-form"]} onSubmit="">
+            <form className={styles["sign-in-form"]} onSubmit={handleLoginFormSubmit}>
               <h2 className={styles.title}>Sign in</h2>
 
               <div className={styles["input-field"]}>
                 <i className="fas fa-user"></i>
-                <input required type="text" placeholder="Username" />
+                <input required type="email" placeholder="Email" name="email" value={formDataLogin.email} onChange={handleChangeLogin} />
               </div>
               <div className={styles["input-field"]}>
                 <i className="fas fa-lock"></i>
-                <input required type="password" placeholder="Password" />
+                <input required type="password" placeholder="Password" name="password" value={formDataLogin.password} onChange={handleChangeLogin}/>
               </div>
 
-              <input type="submit" value="Login" className="primary-btn m-2" />
+              <button type="submit" className="primary-btn m-2" disabled={loading}>
+              {loading ? (
+                  <span>
+                    <i className="fas fa-spinner fa-spin mr-2"></i> Please
+                    wait...
+                  </span>
+                ) : (
+                  "Login"
+                )}
+                </button>
 
               <button
                 type="button"
