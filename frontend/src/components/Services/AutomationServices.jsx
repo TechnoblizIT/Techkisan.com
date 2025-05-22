@@ -1,5 +1,9 @@
 import React, { useEffect } from "react";
 import { FaCheckCircle } from "react-icons/fa";
+import { Helmet } from "react-helmet";
+import { useLocation } from "react-router-dom";
+import Footer from "../Footer/Footer";
+
 import automationservices from "../../assets/automationservices.jpg";
 import homeautomation from "../../assets/home-automation.jpg";
 import lightautomation from "../../assets/light-automation.jpg";
@@ -11,9 +15,6 @@ import occupancy from "../../assets/occupacy-sensor.png";
 import hometheatre from "../../assets/home-theatre.jpg";
 import nurse from "../../assets/nurse-calling-system.jpg";
 import smartlock from "../../assets/Smart-Lock.jpg";
-import Footer from "../Footer/Footer";
-import { useLocation } from "react-router-dom";
-
 
 const services = [
   {
@@ -178,72 +179,112 @@ const AutomationServices = () => {
       if (section) {
         setTimeout(() => {
           section.scrollIntoView({ behavior: "smooth", block: "center" });
-        }, 300); 
+        }, 300);
       }
     }
   }, [location]);
+
   return (
     <>
-      <div>
-    
-        <section
-          className="relative bg-cover bg-center h-96"
-          style={{ backgroundImage: `url(${automationservices})` }}
-        >
-          <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-            <div className="text-center text-white">
-              <h1 className="text-4xl font-bold">Automation</h1>
-              <p className="mt-2">"Simplifying Life with Smart Solutions"</p>
-            </div>
-          </div>
-        </section>
+      <Helmet>
+        <title>Automation Services | Techkisan</title>
+        <meta
+          name="description"
+          content="Explore smart automation services like home automation, BMS, smart locks, occupancy sensors, and more by Techkisan. Simplify life with smart solutions."
+        />
+        <meta
+          name="keywords"
+          content="Home Automation, Building Management System, Smart Lock, Nurse Calling, BMS, Gate Automation, Light Automation, Techkisan"
+        />
+        <link rel="canonical" href="https://www.techkisan.com/automationservices" />
 
- 
-        <div className="container mx-auto py-16 px-6 max-w-7xl">
-          <h2 className="text-3xl font-bold text-center text-gray-800 mb-12">
-            Our Automation Services
-          </h2>
+        {/* Open Graph Tags */}
+        <meta property="og:title" content="Automation Services | Techkisan" />
+        <meta
+          property="og:description"
+          content="Smart automation solutions for home, offices, hospitals, and commercial buildings."
+        />
+        <meta
+          property="og:image"
+          content="https://www.techkisan.com/assets/automationservices.jpg"
+        />
+        <meta property="og:url" content="https://www.techkisan.com/automationservices" />
+        <meta property="og:type" content="website" />
 
-          <div className="grid gap-10 lg:grid-cols-1 relative">
-            {services.map((service, index) => (
-              <div
-                key={index}
-                id={service.id}
-                className="relative group flex flex-col lg:flex-row bg-white shadow-lg rounded-lg overflow-hidden transform transition-all duration-300 hover:scale-105 hover:z-10"
-              >
-            
-                <div className="lg:w-1/3">
-                  <img
-                    src={service.image}
-                    alt={service.title}
-                    className="w-full max-h-64 object-cover"
-                  />
-                </div>
+        {/* Structured Data */}
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "ProductCollection",
+            "name": "Automation Services",
+            "url": "https://www.techkisan.com/automation-services",
+            "description":
+              "A range of smart automation services for home, office, hospitals and commercial spaces by Techkisan.",
+            "brand": {
+              "@type": "Organization",
+              "name": "Techkisan",
+              "url": "https://www.techkisan.com"
+            }
+          })}
+        </script>
+      </Helmet>
 
-            
-                <div className="lg:w-2/3 p-6 flex flex-col justify-center relative z-10">
-                  <div className="bg-gray-100 p-4 rounded-lg shadow">
-                    <h3 className="text-xl font-semibold text-gray-800">
-                      {service.title}
-                    </h3>
-                    <p className="text-gray-600 mt-2">{service.description}</p>
-                  </div>
-
-               
-                  <ul className="mt-4 grid grid-cols-2 md:grid-cols-3 gap-4 text-gray-700">
-                    {service.features.map((feature, i) => (
-                      <li key={i} className="flex items-center gap-2">
-                        <FaCheckCircle className="text-green-500" />
-                        {feature}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-            ))}
+      <section
+        className="relative bg-cover bg-center h-96"
+        style={{ backgroundImage: `url(${automationservices})` }}
+        aria-label="Automation Services Banner"
+      >
+        <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+          <div className="text-center text-white">
+            <h1 className="text-4xl font-bold">Automation</h1>
+            <p className="mt-2">"Simplifying Life with Smart Solutions"</p>
           </div>
         </div>
+      </section>
+
+      <div className="container mx-auto py-16 px-6 max-w-7xl">
+        <h2 className="text-3xl font-bold text-center text-gray-800 mb-12">
+          Our Automation Services
+        </h2>
+
+        <div className="grid gap-10 lg:grid-cols-1 relative">
+          {services.map((service, index) => (
+            <div
+              key={index}
+              id={service.id}
+              className="relative group flex flex-col lg:flex-row bg-white shadow-lg rounded-lg overflow-hidden transform transition-all duration-300 hover:scale-105 hover:z-10"
+            >
+              <div className="lg:w-1/3">
+                <img
+                  src={service.image}
+                  alt={service.title}
+                  loading="lazy"
+                  className="w-full max-h-64 object-cover"
+                />
+              </div>
+
+              <div className="lg:w-2/3 p-6 flex flex-col justify-center relative z-10">
+                <div className="bg-gray-100 p-4 rounded-lg shadow">
+                  <h3 className="text-xl font-semibold text-gray-800">
+                    {service.title}
+                  </h3>
+                  <p className="text-gray-600 mt-2">{service.description}</p>
+                </div>
+
+                <ul className="mt-4 grid grid-cols-2 md:grid-cols-3 gap-4 text-gray-700">
+                  {service.features.map((feature, i) => (
+                    <li key={i} className="flex items-center gap-2">
+                      <FaCheckCircle className="text-green-500" />
+                      {feature}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
+
       <Footer />
     </>
   );

@@ -1,12 +1,15 @@
 import React, { useEffect } from "react";
 import { FaCheckCircle } from "react-icons/fa";
+import { Helmet } from "react-helmet";
+import { useLocation } from "react-router-dom";
+
 import solarBg from "../../assets/solar-services.jpg";
 import onGrid from "../../assets/on-grid.jpeg";
 import offGrid from "../../assets/off-grid.jpeg";
 import inverter from "../../assets/inverter-system.jpg";
 import battery from "../../assets/solar-batteries.jpg";
+
 import Footer from "../Footer/Footer";
-import { useLocation } from "react-router-dom";
 
 const services = [
   {
@@ -85,8 +88,65 @@ const SolarServicesPage = () => {
       }
     }
   }, [location]);
+
   return (
     <>
+      <Helmet>
+        <title>Solar Services | On-Grid, Off-Grid, Inverters & Batteries – Techkisan Automation</title>
+        <meta
+          name="description"
+          content="Explore Techkisan's advanced solar services including on-grid and off-grid solar systems, inverters, and solar batteries for homes and businesses. Power your future sustainably."
+        />
+        <meta
+          name="keywords"
+          content="solar services, on-grid solar, off-grid solar, solar inverters, solar batteries, renewable energy, solar power system, solar energy solutions"
+        />
+        <link rel="canonical" href="https://www.techkisan.com/solarservices" />
+        <meta property="og:title" content="Solar Services | On-Grid, Off-Grid, Inverters & Batteries – Techkisan Automation" />
+        <meta
+          property="og:description"
+          content="Advanced solar solutions from Techkisan Automation including on-grid and off-grid solar, inverters, and batteries. Harness clean energy for your home or business."
+        />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://www.techkisan.com/solarservices" />
+        <meta property="og:image" content="https://www.techkisan.com/assets/solar-services.jpg" />
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            "name": "Solar Services",
+            "url": "https://www.techkisan.com/solarservices",
+            "description":
+              "Explore Techkisan's advanced solar services including on-grid and off-grid solar systems, inverters, and batteries for homes and businesses. Power your future sustainably.",
+            "breadcrumb": {
+              "@type": "BreadcrumbList",
+              "itemListElement": [
+                {
+                  "@type": "ListItem",
+                  "position": 1,
+                  "name": "Home",
+                  "item": "https://www.techkisan.com"
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 2,
+                  "name": "Solar Services",
+                  "item": "https://www.techkisan.com/solarservices"
+                }
+              ]
+            },
+            "publisher": {
+              "@type": "Organization",
+              "name": "Techkisan Automation",
+              "logo": {
+                "@type": "ImageObject",
+                "url": "https://www.techkisan.com/logo.png"
+              }
+            }
+          })}
+        </script>
+      </Helmet>
+
       <div>
         {/* Parallax Section */}
         <section

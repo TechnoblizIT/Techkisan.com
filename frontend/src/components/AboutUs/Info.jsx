@@ -7,7 +7,7 @@ const Info = () => {
       <div class="sm:flex items-center max-w-screen-xl">
         <div class="sm:w-1/2 p-10">
           <div class="image object-center text-center">
-            <img src={aboutus} />
+            <img src={aboutus} alt="About Techkisan Automation" />
           </div>
         </div>
         <div class="sm:w-1/2 p-5">
