@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import Footer from "../Footer/Footer";
 import { useNavigate } from "react-router-dom";
-import { showWarn } from "../../utils/toastUtils";
+import { showError, showSucess, showWarn } from "../../utils/toastUtils";
 import endpoints from "../endpoints/endpoints";
 import axios from "axios";
 
 const Tickets = () => {
   const Endpoints = new endpoints();
-  const [activeTab, setActiveTab] = useState("open");
+  const [activeTab, setActiveTab] = useState("Open");
   const [activeCategory, setActiveCategory] = useState("all");
   const [ticketcreatemsg, setTicketCreatemsg] = useState(null);
   const [searchQueries, setSearchQueries] = useState({
@@ -18,14 +18,12 @@ const Tickets = () => {
     priority: "",
     agentAssigned: "",
   });
-
+  const [isLoading, setIsLoading] = useState(false);
   const [userData, setUserData] = useState(null);
-  const [newTicket, setNewTicket] = useState({
-    title: "",
-    priority: "Medium",
-    description: "",
-  });
-  //  Add Form Api calling
+  const [Tickets, setTickets] = useState([]);
+  const navigator = useNavigate();
+
+  // Initialize form state separately after userData is loaded
   const [addFormData, setAddFormData] = useState({
     subject: "",
     priority: "",
@@ -34,23 +32,9 @@ const Tickets = () => {
     description: "",
     file: null,
     tags: "",
+    User: "",
+    name: "",
   });
-  async function CreateTicket() {
-    try {
-      const response = await axios.post(Endpoints.CREATE_TICKET, addFormData);
-      fetchTickets();
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  const handleAddFormChange = (e) => {
-    const { name, value, type, files } = e.target;
-    setAddFormData((prevData) => ({
-      ...prevData,
-      [name]: type === "file" ? files[0] : value,
-    }));
-  };
 
   const formatDate = (date) => {
     if (!date) return "-";
@@ -60,68 +44,87 @@ const Tickets = () => {
       year: "numeric",
     });
   };
-  const navigator = useNavigate();
 
-  const currentTickets = {
-    open: [
-      {
-        ticketNo: "TICK001",
-        title: "Login Issue",
-        createdDate: "2024-05-01",
-        status: "open",
-        priority: "High",
-        agentAssigned: "Agent John",
-      },
-      {
-        ticketNo: "TICK002",
-        title: "Page not loading",
-        createdDate: "2024-05-10",
-        status: "open",
-        priority: "Medium",
-        agentAssigned: "Agent Alice",
-      },
-    ],
-    closed: [
-      {
-        ticketNo: "TICK003",
-        title: "Password Reset",
-        createdDate: "2024-04-20",
-        status: "closed",
-        priority: "Low",
-        agentAssigned: "Agent Mike",
-      },
-    ],
+  const handleAddFormChange = (e) => {
+    const { name, value, type, files } = e.target;
+    setAddFormData((prev) => ({
+      ...prev,
+      [name]: type === "file" ? files[0] : value,
+    }));
   };
 
-  const filteredTickets = currentTickets[activeTab]?.filter((ticket) =>
-    Object.entries(searchQueries).every(([key, value]) =>
-      ticket[key].toLowerCase().includes(value.toLowerCase())
-    )
-  );
+  const handleDelete = (ticketNo) => {
+    alert(`Delete ticket: ${ticketNo}`);
+  };
+
+  const CreateTicket = async () => {
+    try {
+      setIsLoading(true);
+      const payload = {
+        ...addFormData,
+        User: userData._id,
+        name: userData.name,
+      };
+      const response = await axios.post(Endpoints.CREATE_TICKET, payload);
+
+      if (response.status === 200) {
+        showSucess("Ticket Created Successfully");
+        fetchTickets(); // refresh ticket list
+        setIsLoading(false);
+      }
+    } catch (error) {
+      console.error(error);
+      showError("Error creating ticket. Try again later.");
+      setIsLoading(false);
+    }
+  };
 
   const fetchUserData = async () => {
     const token = localStorage.getItem("token");
     if (!token) {
       setUserData(null);
+      navigator("/login");
       return;
     }
     try {
-      const response = await fetch(Endpoints.LOGIN_USER_FETCH, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
+      const response = await axios.get(Endpoints.LOGIN_USER_FETCH, {
+        headers: { Authorization: `Bearer ${token}` },
       });
-      if (response.ok) {
-        const data = await response.json();
-        setUserData(data.user);
+
+      if (response.status === 200) {
+        setUserData(response.data.user);
       } else {
         setUserData(null);
+        navigator("/login");
       }
     } catch (error) {
       console.error("Failed to fetch user data:", error);
       setUserData(null);
+      navigator("/login");
+    }
+  };
+
+  const fetchTickets = async () => {
+    if (!userData) return;
+
+    try {
+      let response;
+
+      if (activeCategory === "all") {
+        response = await axios.get(Endpoints.ALL_TICKET_FETCH);
+      } else if (activeCategory === "myTickets") {
+        response = await axios.get(Endpoints.MY_TICKET_FETCH, {
+          params: { employeeId: userData._id },
+        });
+      }
+
+      if (response?.data?.tickets) {
+        setTickets(response.data.tickets);
+      } else {
+        console.error("Invalid ticket response format", response);
+      }
+    } catch (error) {
+      console.error("Error fetching tickets:", error);
     }
   };
 
@@ -130,20 +133,21 @@ const Tickets = () => {
     if (!token) {
       navigator("/login");
       showWarn("Please login to access this page");
+    } else {
+      fetchUserData();
     }
-    fetchUserData();
   }, []);
 
-  const handleDelete = (ticketNo) => {
-    alert(`Delete ticket: ${ticketNo}`);
-  };
-
-  const handleFormSubmit = (e) => {
-    e.preventDefault();
-    alert("Ticket submitted: " + JSON.stringify(newTicket));
-    setNewTicket({ title: "", priority: "Medium", description: "" });
-  };
-
+  useEffect(() => {
+    if (userData) {
+      fetchTickets();
+      setAddFormData((prev) => ({
+        ...prev,
+        User: userData._id,
+        name: userData.name,
+      }));
+    }
+  }, [userData, activeCategory]);
   return (
     <div className="p-4 max-w-screen-xl mx-auto animate-fade-in">
       <div className="flex justify-end items-center mb-6 w-full">
@@ -155,7 +159,7 @@ const Tickets = () => {
 
       {/* Category Buttons */}
       <div className="flex flex-wrap justify-center gap-3 mb-4">
-        {["all", "myTickets", "assignedTickets"].map((cat) => (
+        {["all", "myTickets"].map((cat) => (
           <button
             key={cat}
             className={`px-4 py-2 rounded-full text-sm font-medium transition duration-200 ease-in-out shadow ${
@@ -176,7 +180,7 @@ const Tickets = () => {
 
       {/* Tab Switch */}
       <div className="flex gap-4 justify-center mb-4">
-        {["open", "closed"].map((tab) => (
+        {["Open", "Closed"].map((tab) => (
           <button
             key={tab}
             className={`px-3 py-1 rounded-lg border text-sm transition duration-300 ease-in-out ${
@@ -184,10 +188,13 @@ const Tickets = () => {
                 ? "bg-[#32DB3A] text-white shadow-lg scale-105"
                 : "bg-gray-100 hover:bg-[#32DB3A] hover:text-white"
             }`}
-            onClick={() => setActiveTab(tab)}
+            onClick={() => {
+              setActiveTab(tab);
+              setTickets(Tickets.filter((ticket) => ticket.status === tab));
+            }}
           >
             <span className="font-bold mr-2">
-              {currentTickets[tab]?.length ?? 0}
+              {Tickets.filter((ticket) => ticket.status === tab).length}
             </span>
             {tab.charAt(0).toUpperCase() + tab.slice(1)}
           </button>
@@ -237,43 +244,59 @@ const Tickets = () => {
             </tr>
           </thead>
           <tbody>
-            {filteredTickets?.length > 0 ? (
-              filteredTickets.map((ticket, index) => (
-                <tr
-                  key={index}
-                  className={`border-t transition duration-300 ease-in-out hover:bg-orange-50 ${
-                    index % 2 === 0 ? "bg-white" : "bg-gray-50"
-                  }`}
-                >
-                  <td className="px-4 py-2 font-medium">{ticket.ticketNo}</td>
-                  <td className="px-4 py-2">{ticket.title}</td>
-                  <td className="px-4 py-2">{ticket.createdDate}</td>
-                  <td className="px-4 py-2">
-                    <span
-                      className={`px-2 py-1 rounded-full text-xs font-bold ${
-                        activeTab === "open"
-                          ? "bg-green-100 text-green-800"
-                          : "bg-red-100 text-red-800"
-                      }`}
-                    >
-                      {activeTab}
-                    </span>
-                  </td>
-                  <td className="px-4 py-2">{ticket.priority}</td>
-                  <td className="px-4 py-2">{ticket.agentAssigned}</td>
-                  <td className="px-4 py-2 space-x-3">
-                    <button className="text-blue-600 hover:text-blue-800 transition">
-                      <i className="fa-solid fa-pen-to-square"></i>
-                    </button>
-                    <button
-                      onClick={() => handleDelete(ticket.ticketNo)}
-                      className="text-red-600 hover:text-red-800 transition"
-                    >
-                      <i className="fa-solid fa-trash"></i>
-                    </button>
-                  </td>
-                </tr>
-              ))
+            {Tickets?.length > 0 ? (
+              Tickets.slice()
+                .reverse()
+                .map((ticket, index) => (
+                  <tr
+                    key={index}
+                    className={`border-t transition duration-300 ease-in-out hover:bg-orange-50 ${
+                      index % 2 === 0 ? "bg-white" : "bg-gray-50"
+                    }`}
+                  >
+                    <td className="px-4 py-2 font-medium">{ticket.ticketId}</td>
+                    <td className="px-4 py-2">{ticket.subject}</td>
+                    <td className="px-4 py-2">
+                      {formatDate(ticket.createdAt)}
+                    </td>
+                    <td className="px-4 py-2">
+                      <span
+                        className={`px-2 py-1 rounded-full text-xs font-bold ${
+                          activeTab === "open"
+                            ? "bg-green-100 text-green-800"
+                            : "bg-red-100 text-red-800"
+                        }`}
+                      >
+                        {activeTab}
+                      </span>
+                    </td>
+                    <td className="px-4 py-2">{ticket.priority}</td>
+                    <td className="px-4 py-2">
+                      {ticket?.assignedToName ?? "Not Assigned Yet"}
+                    </td>
+                    <td className="px-4 py-2 space-x-3">
+                      {ticket.userId === userData._id ? (
+                        <>
+                          <button
+                            onClick={() =>
+                              navigate(`/tickets/${ticket.ticketNo}`)
+                            }
+                            className="text-blue-600 hover:text-blue-800 transition"
+                          >
+                            <i className="fa-solid fa-pen-to-square"></i>
+                          </button>
+
+                          <button
+                            onClick={() => handleDelete(ticket.ticketNo)}
+                            className="text-red-600 hover:text-red-800 transition"
+                          >
+                            <i className="fa-solid fa-trash"></i>
+                          </button>
+                        </>
+                      ) : null}
+                    </td>
+                  </tr>
+                ))
             ) : (
               <tr>
                 <td colSpan="7" className="text-center px-4 py-6">
