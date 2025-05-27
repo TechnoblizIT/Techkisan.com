@@ -6,10 +6,11 @@ import endpoints from "../endpoints/endpoints";
 import axios from "axios";
 
 const Tickets = () => {
-  const Endpoints = new endpoints();
+const Endpoints = new endpoints();
   const [activeTab, setActiveTab] = useState("Open");
   const [activeCategory, setActiveCategory] = useState("all");
   const [ticketcreatemsg, setTicketCreatemsg] = useState(null);
+  const [allTickets, setAllTickets] = useState([]); 
   const [searchQueries, setSearchQueries] = useState({
     ticketNo: "",
     title: "",
@@ -18,6 +19,10 @@ const Tickets = () => {
     priority: "",
     agentAssigned: "",
   });
+  
+  // Advanced filtering state
+  const [sortConfig, setSortConfig] = useState({ key: null, direction: 'ascending' });
+  const [dateRange, setDateRange] = useState({ start: null, end: null });
   const [isLoading, setIsLoading] = useState(false);
   const [userData, setUserData] = useState(null);
   const [Tickets, setTickets] = useState([]);
@@ -104,6 +109,39 @@ const Tickets = () => {
     }
   };
 
+  // Filter and sort tickets
+  const getFilteredTickets = () => {
+    return allTickets.filter(ticket => {
+      // Status filter
+      if (activeTab !== "All" && ticket.status !== activeTab) return false;
+      
+      // Category filter
+      if (activeCategory === "myTickets" && ticket.userId !== userData._id) return false;
+      
+      // Search queries filter
+      return Object.entries(searchQueries).every(([key, value]) => {
+        if (!value) return true;
+        const ticketValue = String(ticket[key] || "").toLowerCase();
+        return ticketValue.includes(value.toLowerCase());
+      });
+    });
+  };
+
+  // Sort tickets
+  const getSortedTickets = (tickets) => {
+    if (!sortConfig.key) return tickets;
+    
+    return [...tickets].sort((a, b) => {
+      if (a[sortConfig.key] < b[sortConfig.key]) {
+        return sortConfig.direction === 'ascending' ? -1 : 1;
+      }
+      if (a[sortConfig.key] > b[sortConfig.key]) {
+        return sortConfig.direction === 'ascending' ? 1 : -1;
+      }
+      return 0;
+    });
+  };
+
   const fetchTickets = async () => {
     if (!userData) return;
 
@@ -119,12 +157,15 @@ const Tickets = () => {
       }
 
       if (response?.data?.tickets) {
-        setTickets(response.data.tickets);
+        setAllTickets(response.data.tickets);
+        setTickets(response.data.tickets.filter(ticket => ticket.status === activeTab));
       } else {
         console.error("Invalid ticket response format", response);
+        showError("Failed to fetch tickets");
       }
     } catch (error) {
       console.error("Error fetching tickets:", error);
+      showError("Error fetching tickets. Please try again.");
     }
   };
 
@@ -148,6 +189,63 @@ const Tickets = () => {
       }));
     }
   }, [userData, activeCategory]);
+
+  const TableBody = ({ tickets, userData, activeTab, handleDelete, formatDate, navigate }) => {
+    if (tickets.length === 0) {
+      return (
+        <tr>
+          <td colSpan="7" className="text-center px-4 py-6">
+            No tickets found
+          </td>
+        </tr>
+      );
+    }
+
+    return tickets.slice().reverse().map((ticket, index) => (
+      <tr
+        key={index}
+        className={`border-t transition duration-300 ease-in-out hover:bg-orange-50 ${
+          index % 2 === 0 ? "bg-white" : "bg-gray-50"
+        }`}
+      >
+        <td className="px-4 py-2 font-medium">{ticket.ticketId}</td>
+        <td className="px-4 py-2">{ticket.subject}</td>
+        <td className="px-4 py-2">{formatDate(ticket.createdAt)}</td>
+        <td className="px-4 py-2">
+          <span
+            className={`px-2 py-1 rounded-full text-xs font-bold ${
+              activeTab === "Open"
+                ? "bg-green-100 text-green-800"
+                : "bg-red-100 text-red-800"
+            }`}
+          >
+            {activeTab}
+          </span>
+        </td>
+        <td className="px-4 py-2">{ticket.priority}</td>
+        <td className="px-4 py-2">{ticket?.assignedToName ?? "Not Assigned Yet"}</td>
+        <td className="px-4 py-2 space-x-3">
+          {ticket.userId === userData._id ? (
+            <>
+              <button
+                onClick={() => navigate(`/tickets/${ticket.ticketNo}`)}
+                className="text-blue-600 hover:text-blue-800 transition"
+              >
+                <i className="fa-solid fa-pen-to-square"></i>
+              </button>
+              <button
+                onClick={() => handleDelete(ticket.ticketNo)}
+                className="text-red-600 hover:text-red-800 transition"
+              >
+                <i className="fa-solid fa-trash"></i>
+              </button>
+            </>
+          ) : null}
+        </td>
+      </tr>
+    ));
+  };
+
   return (
     <div className="p-4 max-w-screen-xl mx-auto animate-fade-in">
       <div className="flex justify-end items-center mb-6 w-full">
@@ -209,7 +307,26 @@ const Tickets = () => {
               {Object.keys(searchQueries).map((col) => (
                 <th key={col} className="px-4 py-2 bg-[#32DB3A]">
                   <div className="flex flex-col">
-                    <span className="font-semibold capitalize">{col}</span>
+                    <div className="flex items-center justify-between">
+                      <span className="font-semibold capitalize">{col}</span>
+                      <button 
+                        className="ml-2 focus:outline-none"
+                        onClick={() => {
+                          setSortConfig({
+                            key: col,
+                            direction: sortConfig.key === col && sortConfig.direction === 'ascending' 
+                              ? 'descending' 
+                              : 'ascending'
+                          });
+                        }}
+                      >
+                        {sortConfig.key === col ? (
+                          <span>{sortConfig.direction === 'ascending' ? '↑' : '↓'}</span>
+                        ) : (
+                          <span className="text-gray-300">↕</span>
+                        )}
+                      </button>
+                    </div>
                     <div className="flex items-center mt-1">
                       <input
                         type="text"
@@ -244,66 +361,14 @@ const Tickets = () => {
             </tr>
           </thead>
           <tbody>
-            {Tickets?.length > 0 ? (
-              Tickets.slice()
-                .reverse()
-                .map((ticket, index) => (
-                  <tr
-                    key={index}
-                    className={`border-t transition duration-300 ease-in-out hover:bg-orange-50 ${
-                      index % 2 === 0 ? "bg-white" : "bg-gray-50"
-                    }`}
-                  >
-                    <td className="px-4 py-2 font-medium">{ticket.ticketId}</td>
-                    <td className="px-4 py-2">{ticket.subject}</td>
-                    <td className="px-4 py-2">
-                      {formatDate(ticket.createdAt)}
-                    </td>
-                    <td className="px-4 py-2">
-                      <span
-                        className={`px-2 py-1 rounded-full text-xs font-bold ${
-                          activeTab === "open"
-                            ? "bg-green-100 text-green-800"
-                            : "bg-red-100 text-red-800"
-                        }`}
-                      >
-                        {activeTab}
-                      </span>
-                    </td>
-                    <td className="px-4 py-2">{ticket.priority}</td>
-                    <td className="px-4 py-2">
-                      {ticket?.assignedToName ?? "Not Assigned Yet"}
-                    </td>
-                    <td className="px-4 py-2 space-x-3">
-                      {ticket.userId === userData._id ? (
-                        <>
-                          <button
-                            onClick={() =>
-                              navigate(`/tickets/${ticket.ticketNo}`)
-                            }
-                            className="text-blue-600 hover:text-blue-800 transition"
-                          >
-                            <i className="fa-solid fa-pen-to-square"></i>
-                          </button>
-
-                          <button
-                            onClick={() => handleDelete(ticket.ticketNo)}
-                            className="text-red-600 hover:text-red-800 transition"
-                          >
-                            <i className="fa-solid fa-trash"></i>
-                          </button>
-                        </>
-                      ) : null}
-                    </td>
-                  </tr>
-                ))
-            ) : (
-              <tr>
-                <td colSpan="7" className="text-center px-4 py-6">
-                  No tickets found
-                </td>
-              </tr>
-            )}
+            <TableBody 
+              tickets={getSortedTickets(getFilteredTickets())}
+              userData={userData}
+              activeTab={activeTab}
+              handleDelete={handleDelete}
+              formatDate={formatDate}
+              navigate={navigator}
+            />
           </tbody>
         </table>
       </div>
