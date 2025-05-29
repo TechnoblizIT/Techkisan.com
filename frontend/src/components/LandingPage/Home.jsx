@@ -23,7 +23,7 @@ function Home() {
           name="keywords"
           content="home automation, solar panel installation, IT services, security solutions, smart home, Techkisan"
         />
-        <link rel="canonical" href="https://www.techkisan.com/" />
+        <link rel="canonical" href="https://techkisan.com/" />
 
         {/* Open Graph Tags */}
         <meta property="og:title" content="Techkisan Automation | Smart Automation, Solar, Security & IT Services" />
